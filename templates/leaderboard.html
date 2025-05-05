@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Leaderboard{% endblock %}
+{% block content %}
+<div class="leaderboard-container">
+    <h1 class="leaderboard-title">🏆 MascuLead : Gendered Bias Leaderboard</h1>
+    <p>*GG is Gender Gap </p>
+
+    <div class="leaderboard-card">
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Model</th>
+                    <th>Average (↓)</th>
+                    <th>GG Masc-Neutral</th>
+                    <th>GG Fem-Neutral</th>
+                    <th>GG Masc-Gendered</th>
+                    <th>GG Fem-Gendered</th>
+                    <th>Gender Shift</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in leaderboard %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ entry.model }}</td>
+                    <td>{{ "%.2f"|format(entry.average) }}</td>
+                    <td>{{ entry.gg_masc_neutral or "-" }}</td>
+                    <td>{{ entry.gg_fem_neutral or "-" }}</td>
+                    <td>{{ entry.gg_masc_gendered or "-" }}</td>
+                    <td>{{ entry.gg_fem_gendered or "-" }}</td>
+                    <td>{{ entry.gender_shift or "-" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
