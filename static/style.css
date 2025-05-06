@@ -180,3 +180,32 @@ body {
     box-shadow: inset 0 0 5px rgba(255, 200, 150, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+.sidebar .dropdown {
+    width: 100%;
+}
+
+.sidebar .dropdown-toggle {
+    cursor: pointer;
+}
+
+.sidebar .dropdown-content {
+    display: none;
+    flex-direction: column;
+    background-color: #34495e;
+    padding-left: 10px;
+}
+
+.sidebar .dropdown.open .dropdown-content {
+    display: flex;
+}
+
+.sidebar .dropdown-content li a {
+    padding: 10px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.sidebar .dropdown-content li a:hover {
+    background-color: #3d566e;
+}
