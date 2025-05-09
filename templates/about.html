@@ -1,7 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %}À propos{% endblock %}
+{% block title %}AboutUs{% endblock %}
+
 {% block content %}
-    <h1>À propos</h1>
-    <p>Ce site permet d’analyser des fichiers CSV.</p>
+<h1>Members of this project</h1>
+    <div class="team-container">
+        {% for person in team %}
+        <div class="member-card">
+            <img src="{{ person.image }}" class="card-img-top member-img" alt="{{ person.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ person.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ person.role }}</h6>
+                <p class="card-text">{{ person.description }}</p>
+                <a href={{person.link}} target="_blank">{{person.link}} </a>
+            </div>
+        </div>
+        
+        {% endfor %}
+    </div>
+    <div class="card">
+        <h3>Si on veut ajouter un petit message</h3>
+        <p>A voir </p>
+    </div>
 {% endblock %}

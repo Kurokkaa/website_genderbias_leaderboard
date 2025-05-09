@@ -4,46 +4,50 @@
     <meta charset="UTF-8">
     <title>{% block title %}Mon site{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const toggles = document.querySelectorAll('.dropdown-toggle');
-
-        toggles.forEach(function (toggle) {
-            toggle.addEventListener('click', function (e) {
-                e.preventDefault();
-                const parent = this.parentElement;
-                parent.classList.toggle('open');
-            });
-        });
-    });
-</script>
 <body>
-    <div class="container">
-        <aside class="sidebar">
+
+    <header class="navbar">
+        <div class="nav-content">
             <div class="logo">
-                <img src="{{ url_for('static', filename='logo_loria.png') }}" alt="LORIA" />
+                <a href="/"><img src="{{ url_for('static', filename='logo_loria.png') }}" alt="Logo"></a>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="/">Accueil</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">Leaderboard ▾</a>
-                        <ul class="dropdown-content">
-                            <li><a href="/leaderboard_global">Global Leaderboard</a></li>
-                            <li><a href="/leaderboard_neutral">Neutral Leaderboard</a></li>
-                            <li><a href="/leaderboard_gendered">Gendered Leaderboard</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/upload">Upload CSV</a></li>
-                    <li><a href="/about">À propos</a></li>
-                </ul>
+            <nav class="nav-links">
+                <a href="/">Accueil</a>
+                <div class="dropdown">
+                    <button class="dropbtn">Leaderboard ▾</button>
+                    <div class="dropdown-content">
+                        <a href="/leaderboard_global">Global</a>
+                        <a href="/leaderboard_neutral">Neutral</a>
+                        <a href="/leaderboard_gendered">Gendered</a>
+                    </div>
+                </div>
+                <a href="/upload">Upload</a>
+                <a href="/about">About Us</a>
             </nav>
-        </aside>
-        <main class="content">
-            {% block content %}{% endblock %}
-        </main>
-    </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+    <script>
+        const dropdown = document.querySelector('.dropdown');
+        let timeoutId;
+    
+        dropdown.addEventListener('mouseenter', () => {
+            clearTimeout(timeoutId); // Empêche la fermeture immédiate
+            dropdown.querySelector('.dropdown-content').style.display = 'block';
+        });
+    
+        dropdown.addEventListener('mouseleave', () => {
+            // Garde le menu ouvert pendant 300ms après avoir quitté
+            timeoutId = setTimeout(() => {
+                dropdown.querySelector('.dropdown-content').style.display = 'none';
+            }, 300);
+        });
+    </script>
 </body>
 </html>

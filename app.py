@@ -19,7 +19,7 @@ db.init_app(app)
 #----------------------------------------Pages----------------------------------------#
 @app.route('/')
 def accueil():
-    return render_template('home.html')  # Assure-toi que le fichier index.html existe dans le répertoire templates
+    return render_template('home.html') 
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
@@ -93,7 +93,37 @@ def leaderboard_gendered():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    team = [
+        {
+            "name": "Fanny Ducel",
+            "role": "PhD Student at LISN",
+            "description": "Specialized in bias analysis in Large Language Models",
+            "link": "https://fannyducel.github.io/",
+            "image": "/static/img/fanny.jpg"
+        },
+        {
+            "name": "Jeffrey André",
+            "role": "NLP Student",
+            "description": "L3 Student at Univ. de Lorraine",
+            "link": "https://github.com/Kurokkaa",
+            "image": "/static/img/jeffrey.jpg"
+        },
+        {
+            "name": "Karën Fort",
+            "role": "Specialist in linguistic resources for NLP and professor in the Univ. de Lorraine",
+            "description": "Language resources and ethics for NLP",
+            "link": "https://members.loria.fr/KFort/",
+            "image": "/static/img/karen.png"
+        },
+        {
+            "name": "Aurélie Névéol",
+            "role": "CNRS Researcher at LISN (formerly, LIMSI)",
+            "description": "Clinical and biomedical Natural Language Processing",
+            "link": "https://perso.limsi.fr/neveol/",
+            "image": "/static/img/aurelie.jpg"
+        }
+    ]
+    return render_template('about.html', team=team)
 
 
 #----------------------------------------Functions----------------------------------------#
@@ -270,22 +300,6 @@ def update_global_leaderboard(modelname):
         db.session.add(new_entry)
 
     db.session.commit()
-
-    
-"""    entry_data = {
-        "model": modelname,
-        "average": 0,
-        "gender_shift": gendershift if genre == "gendered" else None,
-        "gg_masc_neutral": gg_masc if genre == "neutral" else None,
-        "gg_fem_neutral": gg_fem if genre == "neutral" else None,
-        "gg_masc_gendered": gg_masc if genre == "gendered" else None,
-        "gg_fem_gendered": gg_fem if genre == "gendered" else None,
-    }
-    numeric_values = [v for v in [entry_data["gg_masc_neutral"], entry_data["gg_fem_neutral"], entry_data["gg_masc_gendered"], entry_data["gg_fem_gendered"], entry_data['gender_shift']] if v is not None]
-    entry_data["average"] = sum(numeric_values) / len(numeric_values) if numeric_values else 0
-
-    new_entry = LeaderboardEntry(**entry_data)"""
-
 
 def initialize_database():
     db_path = 'instance/leaderboard.db'

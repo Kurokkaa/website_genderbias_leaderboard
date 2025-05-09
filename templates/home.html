@@ -3,15 +3,37 @@
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
-    <div class="home-background">
-        <h1>Bienvenue sur notre site web</h1>
-        <div class="card">
-            <h3>Qu'est-ce que nous faisons ?</h3>
-            <p>Nous permettons l’analyse de fichiers CSV pour extraire des informations et effectuer des calculs spécifiques.</p>
-        </div>
-        <div class="card">
-            <h3>Comment ça marche ?</h3>
-            <p>Il vous suffit d’uploader un fichier CSV et notre algorithme s'occupe du reste !</p>
+<div class="home-background">
+    <div class="home-content">
+        <h1>Welcome to Masculead a interactive leaderboard</h1>
+        <p class="lead">
+            This website allows you to calculate your gendergap and/or gendershift, and if you want to add your results in the leaderboard.
+        </p>
+        
+        <div class="feature-cards">
+            <div class="card">
+                <h3>1st Step : Let's Start</h3>
+                <p>
+                    Go on https://github.com/FannyDucel/GenderBiasCoverLetter and download repository.
+                </p>
+            </div>
+            <div class="card">
+                <h3>2nd Step : Start generation/annotation</h3>
+                <p>
+                    Read the "ReadMe". To know how to use this framework. (Use "generation.py" to generate the cover letters and use "gender_detection_fr.py")
+                    When you have your annoted results, you can upload them here.
+                </p>
+                <a href="/upload" class="btn-outline-primary">Upload your csv</a>
+            </div>
+            <div class="card">
+                <h3>3rd Step : Compare your results</h3>
+                <p>
+                    Now you can check your results in the leaderboard.
+                    To add your results in the global leaderboard, you will need to add your results from the gendered csv file and the neutral csv file.
+                </p>
+                <a href="/leaderboard_global" class="btn-outline-primary">See Masculead</a>
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}
