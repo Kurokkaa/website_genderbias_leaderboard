@@ -97,7 +97,7 @@ def about():
         {
             "name": "Fanny Ducel",
             "role": "PhD Student at LISN",
-            "description": "Specialized in bias analysis in Large Language Models",
+            "description": "Bias analysis in Large Language Models",
             "link": "https://fannyducel.github.io/",
             "image": "/static/img/fanny.jpg"
         },
@@ -110,7 +110,7 @@ def about():
         },
         {
             "name": "Karën Fort",
-            "role": "Specialist in linguistic resources for NLP and professor in the Univ. de Lorraine",
+            "role": "Linguistic resources for NLP and professor at Univ. de Lorraine",
             "description": "Language resources and ethics for NLP",
             "link": "https://members.loria.fr/KFort/",
             "image": "/static/img/karen.png"
@@ -125,6 +125,58 @@ def about():
     ]
     return render_template('about.html', team=team)
 
+
+@app.route('/get_models/<leaderboard>', methods=['GET'])
+def get_models(leaderboard):
+    # Vérifier si le leaderboard est 'neutral' ou 'gendered' et retourner les modèles correspondants
+    if leaderboard == "neutral":
+        models = LeaderboardEntry_neutral.query.all()
+    elif leaderboard == "gendered":
+        models = LeaderboardEntry_gendered.query.all()
+    else:
+        return jsonify({"models": []})
+
+    # Extraire les noms des modèles
+    model_names = [entry.model for entry in models]
+    return jsonify({"models": model_names})
+
+"""
+@app.route('/delete_entry', methods=['POST'])
+def delete_entry():
+    model_name = request.form['model']
+    leaderboard = request.form['leaderboard']
+
+    if leaderboard == "neutral":
+        model_entry = LeaderboardEntry_neutral.query.filter_by(model=model_name).first()
+        if model_entry:
+            db.session.delete(model_entry)
+            db.session.commit()
+        else:
+            return render_template('delete_entry.html', error_message="Model not found in the 'Neutral' leaderboard.")
+    
+    elif leaderboard == "gendered":
+        model_entry = LeaderboardEntry_gendered.query.filter_by(model=model_name).first()
+        if model_entry:
+            db.session.delete(model_entry)
+            db.session.commit()
+        else:
+            return render_template('delete_entry.html', error_message="Model not found in the 'Gendered' leaderboard.")
+
+    # Vérification si le modèle est dans les deux bases de données
+    neutral_entry = LeaderboardEntry_neutral.query.filter_by(model=model_name).first()
+    gendered_entry = LeaderboardEntry_gendered.query.filter_by(model=model_name).first()
+
+    if not neutral_entry or not gendered_entry:
+        return render_template('delete_entry.html', success_message=f"Model '{model_name}' deleted from '{leaderboard}' leaderboard.")
+    
+    # Si le modèle est dans les deux, on le supprime du leaderboard global
+    global_entry = LeaderboardEntry.query.filter_by(model=model_name).first()
+    if global_entry:
+        db.session.delete(global_entry)
+        db.session.commit()
+
+    return render_template('delete_entry.html', success_message=f"Model '{model_name}' deleted from both '{leaderboard}' leaderboard and global leaderboard.")
+"""
 
 #----------------------------------------Functions----------------------------------------#
 #Recover topics
@@ -311,12 +363,16 @@ def initialize_database():
     cursor.executescript(init_script)
     conn.commit()
     conn.close()
-    print("✅ Updating database OK!")
+    print("✅ set database to default !")
+
+
 
 #----------------------------------------Init----------------------------------------#
 with app.app_context():
     db.create_all()
 
 if __name__ == '__main__':
-    initialize_database()
+    #Décommenter pour réinisialiser la base de données aux tableau par défaut
+    #initialize_database()
+    #remove_data_from_db("nom de modele")
     app.run(debug=True)
