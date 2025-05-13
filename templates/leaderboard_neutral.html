@@ -14,6 +14,7 @@
                     <th>Model</th>
                     <th>GG Masc-Neutral</th>
                     <th>GG Fem-Neutral</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,7 @@
                     <td>{{ entry.model }}</td>
                     <td>{{ entry.gg_masc_neutral or "-" }}</td>
                     <td>{{ entry.gg_fem_neutral or "-" }}</td>
+                    <td>{{ entry.date_now }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

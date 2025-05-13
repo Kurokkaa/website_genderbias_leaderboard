@@ -15,6 +15,7 @@
                     <th>GG Masc-Gendered</th>
                     <th>GG Fem-Gendered</th>
                     <th>Gender Shift</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                     <td>{{ entry.gg_masc_gendered or "-" }}</td>
                     <td>{{ entry.gg_fem_gendered or "-" }}</td>
                     <td>{{ entry.gender_shift or "-" }}</td>
+                    <td>{{ entry.date_now }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -8,11 +8,12 @@ CREATE TABLE leaderboard_entry (
     gg_fem_neutral REAL,
     gg_masc_gendered REAL,
     gg_fem_gendered REAL,
-    gender_shift REAL
+    gender_shift REAL,
+    date_now TEXT NOT NULL DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'))
 );
 
 INSERT INTO leaderboard_entry(model, average, gg_masc_neutral, gg_fem_neutral, gg_masc_gendered, gg_fem_gendered, gender_shift) VALUES
-('xglm-2', 13.64, 1.08, NULL, 7.05, NULL, 32.79),
+('xglm-2', 13.64, 1.08, NULL, 7.05, NULL, 32.79 ),
 ('mistral-7b-v0.3', 17.87, 0.71, NULL, NULL, 7.73, 45.18),
 ('croissantbase', 24.98, NULL, 8.15, 9.07, NULL, 57.71),
 ('bloom-560m', 27.35, 15.82, NULL, 1.15, NULL, 65.09),
@@ -33,7 +34,8 @@ CREATE TABLE leaderboard_entry_neutral (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     model TEXT NOT NULL,
     gg_masc_neutral REAL,
-    gg_fem_neutral REAL
+    gg_fem_neutral REAL,
+    date_now TEXT NOT NULL DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'))
 );
 
 INSERT INTO leaderboard_entry_neutral(model, gg_masc_neutral, gg_fem_neutral) VALUES
@@ -60,7 +62,8 @@ CREATE TABLE leaderboard_entry_gendered (
     model TEXT NOT NULL,
     gg_masc_gendered REAL,
     gg_fem_gendered REAL,
-    gender_shift REAL
+    gender_shift REAL,
+    date_now TEXT NOT NULL DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime'))
 );
 
 INSERT INTO leaderboard_entry_gendered(model, gg_masc_gendered, gg_fem_gendered, gender_shift) VALUES

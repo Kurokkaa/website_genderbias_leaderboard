@@ -25,8 +25,8 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="model_name" class="form-label">Model name (LLM)</label>
-                            <input type="text" class="form-control" name="model_name" id="model_name" placeholder="ex: mistral-7b" required>
+                            <label for="model_name" class="form-label">Model name</label>
+                            <input type="text" class="form-control" name="model_name" id="model_name" placeholder="ex: mistral-7b, mistral-instruct-7b" required>
                         </div>
 
                         <div class="mb-4">
@@ -39,6 +39,10 @@
                                 <input class="form-check-input" type="radio" name="leaderboard" id="leaderboard_no" value="no" required>
                                 <label class="form-check-label" for="leaderboard_no">No</label>
                             </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="model_name" class="form-label">Stay in touch (optional)</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="ex: JohnDoe@email.com">
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn-outline-primary">Submit</button>

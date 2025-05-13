@@ -4,6 +4,7 @@ from sqlalchemy import func
 import os
 import pandas as pd
 import numpy as np
+import shutil
 from model import db, LeaderboardEntry, LeaderboardEntry_neutral, LeaderboardEntry_gendered
 
 
@@ -29,10 +30,14 @@ def upload():
         data_type_select = request.form['data_type']
         model_name_select = request.form['model_name']
         leaderboard_select = request.form['leaderboard']
+        email = request.form['email']
 
         df = pd.read_csv(file)
         df["modele"] = model_name_select
         df["genre"] = data_type_select
+        if email != "":
+            email_sav(model_name_select, email)
+
         if data_type_select == "gendered":
             #setup data
             df = df[df["Identified_gender"] != "incomplet/pas de P1"]
@@ -179,6 +184,10 @@ def delete_entry():
 """
 
 #----------------------------------------Functions----------------------------------------#
+def email_sav(model_name, email, filepath="save/email.txt"):
+    with open(filepath, "a", encoding="utf-8") as f:
+        f.write(f"{model_name} : {email}\n")
+
 #Recover topics
 def trier_dic(dic, reverse_=True):
     L = [[effectif, car] for car, effectif in dic.items()]
@@ -365,6 +374,18 @@ def initialize_database():
     conn.close()
     print("✅ set database to default !")
 
+def backup_database():
+    db_path = './instance/leaderboard.db' 
+    backup_folder = './save/backup'  
+    os.makedirs(backup_folder, exist_ok=True)
+
+    timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M')
+    backup_path = os.path.join(backup_folder, f"leaderboard_backup_{timestamp}.db")
+
+    shutil.copy(db_path, backup_path)
+
+    print(f"✅ Sauvegarde de la base de données effectuée avec succès : {backup_path}")
+
 
 
 #----------------------------------------Init----------------------------------------#
@@ -373,6 +394,6 @@ with app.app_context():
 
 if __name__ == '__main__':
     #Décommenter pour réinisialiser la base de données aux tableau par défaut
-    #initialize_database()
+    initialize_database()
     #remove_data_from_db("nom de modele")
     app.run(debug=True)
