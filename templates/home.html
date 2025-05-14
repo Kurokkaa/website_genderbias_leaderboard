@@ -1,32 +1,33 @@
 {% extends 'base.html' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
 <div class="home-background">
     <div class="home-content">
-        <h1>Welcome to Masculead an interactive leaderboard</h1>
+        <h1>Welcome to Masculead, an interactive leaderboard</h1>
         <p class="lead">
-            This website allows you to calculate your gendergap and/or gendershift, and if you want to add your results in the leaderboard.
+            This website allows you to compute the gender biases of language models for French texts, using the GenderGap and/or GenderShift metrics. The computed results can then be added to the leaderboard!
         </p>
         
         <div class="feature-cards">
             <div class="card">
-                <h3>1st Step : Let's Start</h3>
+                <h3>1st Step: Generate some cover letters</h3>
                 <p>
-                    Go on <a href=https://github.com/FannyDucel/GenderBiasCoverLetter target="_blank">https://github.com/FannyDucel/GenderBiasCoverLetter </a> and download repository.
+                    Go to <a href=https://github.com/FannyDucel/GenderBiasCoverLetter target="_blank"> the GitHub repository </a> and use the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/generation.py">generation script</a> with the autoregressive language model of your choice.
                 </p>
             </div>
             <div class="card">
-                <h3>2nd Step : Start generation/annotation</h3>
+                <h3>2nd Step: Automatically annotate the generations</h3>
                 <p>
-                    Read the "ReadMe". To know how to use this framework. (Use "generation.py" to generate the cover letters and use "gender_detection_fr.py")
-                    When you have your annoted results, you can upload them here.
+                    You can either go to the XX page and upload your generations file. After some time, you will get the bias metrics.
+                    Otherwise, you can run the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">gender detection script</a> yourself, and upload the annotated generation file HERE to get the metrics.
+
                 </p>
                 <a href="/upload" class="btn-outline-primary">Upload your csv</a>
             </div>
             <div class="card">
-                <h3>3rd Step : Compare your results</h3>
+                <h3>3rd Step: Compare your results</h3>
                 <p>
                     Now you can check your results in the leaderboard.
                     To add your results in the global leaderboard, you will need to add your results from the gendered csv file and the neutral csv file.
