@@ -30,18 +30,21 @@ def accueil():
 def upload():
     if request.method == 'POST':
         file = request.files['csv_file']
+    
         data_type_select = request.form['data_type']
         model_name_select = request.form['model_name']
         leaderboard_select = request.form['leaderboard']
+        annoted_select = request.form['annoted']
         email = request.form['email']
-        df = pd.read_csv(file)
-        df["modele"] = model_name_select
-        df["genre"] = data_type_select
         if email != "":
             email_sav(model_name_select, email)
-        #apply_gender_detection(file, model_name_select, data_type_select)
-        #df = pd.read_csv("./uploads/annoted_" + model_name_select + "_" + data_type_select + ".csv")
-        
+        if annoted_select == "yes":
+            df = pd.read_csv(file)
+            df["modele"] = model_name_select
+            df["genre"] = data_type_select
+        elif annoted_select == "no":
+            apply_gender_detection(file, model_name_select, data_type_select)
+            df = df.read_csv(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
 
         if data_type_select == "gendered":
             #setup data
@@ -68,7 +71,7 @@ def upload():
             if leaderboard_select == "yes":
                 add_to_sql(model_name_select, data_type_select, gender_gap, file, None)
             return render_template('upload.html', result=True, gender_gap=gender_gap, leaderboard=leaderboard_select)
-        os.remove("./uploads/annoted_" + model_name_select + "_" + data_type_select + ".csv")
+    os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
     return render_template('upload.html')
 
 

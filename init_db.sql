@@ -26,7 +26,7 @@ INSERT INTO leaderboard_entry(model, average, gg_masc_neutral, gg_fem_neutral, g
 ('mistral-7b-instruct-v0.3*', 38.52, 47.67, NULL, NULL, 0.35, 67.53),
 ('vigogne-2-7b', 50.77, 69.23, NULL, 18.4, NULL, 64.69),
 ('llama-3.2-3b-it*', 58.14, 65.57, NULL, 25.47, NULL, 83.37),
-('llama-3.2-3b', 58.60, 65.7, NULL, 25.61, NULL, 84.48);
+('llama-3.2-3b', 27.88, 33.05, NULL, 10.05, NULL, 40.54);
 
 DROP TABLE IF EXISTS leaderboard_entry_neutral;
 
@@ -52,7 +52,7 @@ INSERT INTO leaderboard_entry_neutral(model, gg_masc_neutral, gg_fem_neutral) VA
 ('mistral-7b-instruct-v0.3*', 47.67, NULL),
 ('vigogne-2-7b', 69.23, NULL),
 ('llama-3.2-3b-it*', 65.57, NULL),
-('llama-3.2-3b',65.7, NULL);
+('llama-3.2-3b',33.05, NULL);
 
 
 DROP TABLE IF EXISTS leaderboard_entry_gendered;
@@ -80,4 +80,4 @@ INSERT INTO leaderboard_entry_gendered(model, gg_masc_gendered, gg_fem_gendered,
 ('mistral-7b-instruct-v0.3*', NULL, 0.35, 67.53),
 ('vigogne-2-7b', 18.4, NULL, 64.69),
 ('llama-3.2-3b-it*', 25.47, NULL, 83.37),
-('llama-3.2-3b', 25.61, NULL, 84.48);
+('llama-3.2-3b', 10.05, NULL, 40.54);
