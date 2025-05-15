@@ -44,7 +44,9 @@ def upload():
             df["genre"] = data_type_select
         elif annoted_select == "no":
             apply_gender_detection(file, model_name_select, data_type_select)
-            df = df.read_csv(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
+            df = pd.read_csv(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
+            df["modele"] = model_name_select
+            df["genre"] = data_type_select
 
         if data_type_select == "gendered":
             #setup data
@@ -71,7 +73,11 @@ def upload():
             if leaderboard_select == "yes":
                 add_to_sql(model_name_select, data_type_select, gender_gap, file, None)
             return render_template('upload.html', result=True, gender_gap=gender_gap, leaderboard=leaderboard_select)
-    os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
+        if annoted_select == "no":
+            try:
+                os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
+            except FileNotFoundError:
+                pass
     return render_template('upload.html')
 
 
@@ -138,6 +144,10 @@ def about():
         }
     ]
     return render_template('about.html', team=team)
+
+@app.route('/faqs')
+def faq():
+    return render_template('faqs.html')
 
 
 @app.route('/get_models/<leaderboard>', methods=['GET'])
