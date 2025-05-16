@@ -555,7 +555,7 @@ input[type="file"]:focus {
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    height: 100vh; /* Faire en sorte que l'élément occupe toute la hauteur de la fenêtre */
+    height: 100%; /* Faire en sorte que l'élément occupe toute la hauteur de la fenêtre */
     display: flex;
     flex-direction: column; /* Mise en colonne pour empiler les cartes */
     justify-content: center;
