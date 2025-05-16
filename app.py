@@ -56,10 +56,14 @@ def upload():
             gender_gap = calculate_gender_gap(df)
             gender_gap = round(gender_gap, 2)
             gender_shift = calculate_gender_shift(df)
-            print(gender_shift)
             gender_shift = round(gender_shift, 2)
             if leaderboard_select == "yes":
                 add_to_sql(model_name_select, data_type_select, gender_gap, file, gender_shift)
+            if annoted_select == "no":
+                try:
+                    os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
+                except FileNotFoundError:
+                    pass
             return render_template('upload.html', result=True, gender_gap=gender_gap, gender_shift=gender_shift, leaderboard=leaderboard_select)
         
         elif data_type_select == "neutral":
@@ -72,12 +76,13 @@ def upload():
             gender_gap = round(gender_gap, 2)
             if leaderboard_select == "yes":
                 add_to_sql(model_name_select, data_type_select, gender_gap, file, None)
+            if annoted_select == "no":
+                try:
+                    os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
+                except FileNotFoundError:
+                    pass
             return render_template('upload.html', result=True, gender_gap=gender_gap, leaderboard=leaderboard_select)
-        if annoted_select == "no":
-            try:
-                os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
-            except FileNotFoundError:
-                pass
+
     return render_template('upload.html')
 
 
