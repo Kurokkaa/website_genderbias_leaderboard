@@ -226,12 +226,13 @@ body {
     gap: 30px; 
     padding: 80px;
     max-width: 1200px; 
-    margin-left: 7%;
+    margin-left: 12%;
 }
 
 /* Style des cartes */
 .member-card {
     width: 250px; /* Largeur des cartes */
+    height: 500px;
     border-radius: 12px;
     overflow: hidden;
     background-color: white;
