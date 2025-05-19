@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, redirect, make_response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 import os
@@ -10,7 +10,9 @@ import shutil
 import json
 import spacy
 from model import db, LeaderboardEntry, LeaderboardEntry_neutral, LeaderboardEntry_gendered
-from flask_babel import Babel
+from flask_babel import Babel, get_locale
+import csv
+from werkzeug.utils import secure_filename
 
 
 # Flask initialization
@@ -20,25 +22,41 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///leaderboard.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db.init_app(app)
 #----------------------------------------Flask-babel----------------------------------------#
-babel = Babel(app)
+babel = Babel()
 
 LANGUAGES = ['en', 'fr']
 
+app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'translations'
+
+
+@app.route('/set_language/<lang>')
+def set_language(lang):
+    if lang not in LANGUAGES:
+        lang = 'en'
+    resp = make_response(redirect(request.referrer or '/'))
+    resp.set_cookie('lang', lang, max_age=30*24*60*60) 
+    return resp
+
 def get_locale():
-    # Vérifiez si la langue est passée dans l'URL
-    lang = request.args.get('lang')
+    lang = request.cookies.get('lang')
     if lang in LANGUAGES:
         return lang
-    # Sinon, utilisez la langue par défaut (anglais)
-    return 'en'
+    return request.accept_languages.best_match(LANGUAGES)
+
+def select_locale():
+    return request.cookies.get('lang') or request.accept_languages.best_match(LANGUAGES)
+
+babel.init_app(app, locale_selector=select_locale)
 
 @app.context_processor
 def inject_get_locale():
     return dict(get_locale=get_locale)
 
-babel.init_app(app, locale_selector=get_locale)
+
 #----------------------------------------Pages----------------------------------------#
 @app.route('/')
 def accueil():
@@ -48,12 +66,15 @@ def accueil():
 def upload():
     if request.method == 'POST':
         file = request.files['csv_file']
-    
+        manual_annotated_select = request.form['manual_annotation']
         data_type_select = request.form['data_type']
         model_name_select = request.form['model_name']
         leaderboard_select = request.form['leaderboard']
         annoted_select = request.form['annoted']
         email = request.form['email']
+
+        manual_annotated_select = True if manual_annotated_select == 'true' else False
+
         if email != "":
             email_sav(model_name_select, email)
         if annoted_select == "yes":
@@ -65,6 +86,8 @@ def upload():
             df = pd.read_csv(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
             df["modele"] = model_name_select
             df["genre"] = data_type_select
+            
+        csv_rows_count = len(df) -1
 
         if data_type_select == "gendered":
             #setup data
@@ -76,7 +99,7 @@ def upload():
             gender_shift = calculate_gender_shift(df)
             gender_shift = round(gender_shift, 2)
             if leaderboard_select == "yes":
-                add_to_sql(model_name_select, data_type_select, gender_gap, file, gender_shift)
+                add_to_sql(model_name_select, data_type_select, gender_gap, manual_annotated_select, csv_rows_count, gender_shift )
             if annoted_select == "no":
                 try:
                     os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
@@ -93,7 +116,7 @@ def upload():
             gender_gap = calculate_gender_gap(df)
             gender_gap = round(gender_gap, 2)
             if leaderboard_select == "yes":
-                add_to_sql(model_name_select, data_type_select, gender_gap, file, None)
+                add_to_sql(model_name_select, data_type_select, gender_gap, manual_annotated_select, csv_rows_count)
             if annoted_select == "no":
                 try:
                     os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
@@ -310,7 +333,7 @@ def calculate_gender_shift(df):
 
     return (sum(df['gender_shift']) / len(df['gender_shift']))*100
 
-def add_to_sql(modelname, genre, gendergap ,file, gendershift=None):
+def add_to_sql(modelname, genre, gendergap , annotated, csv_row_count, gendershift=None ):
     if(gendergap<0):
         gg_fem = abs(gendergap)
         gg_masc = None
@@ -326,17 +349,15 @@ def add_to_sql(modelname, genre, gendergap ,file, gendershift=None):
         if genre == "neutral":
             existing_model.gg_masc_neutral = gg_masc
             existing_model.gg_fem_neutral = gg_fem
+            existing_model.annotated = annotated
+            existing_model.csv_row_count = csv_row_count
         elif genre == "gendered":
             existing_model.gg_masc_gendered = gg_masc
             existing_model.gg_fem_gendered = gg_fem
             existing_model.gender_shift = gendershift
-        values = [
-            existing_model.gg_masc_neutral,
-            existing_model.gg_fem_neutral,
-            existing_model.gg_masc_gendered,
-            existing_model.gg_fem_gendered,
-            existing_model.gender_shift
-        ]
+            existing_model.annotated = annotated
+            existing_model.csv_row_count = csv_row_count
+
         db.session.commit()
         return
     
@@ -344,7 +365,9 @@ def add_to_sql(modelname, genre, gendergap ,file, gendershift=None):
         new_entry = LeaderboardEntry_neutral(
             model=modelname,
             gg_masc_neutral=gg_masc,
-            gg_fem_neutral=gg_fem
+            gg_fem_neutral=gg_fem,
+            annotated=annotated,
+            csv_row_count=csv_row_count
         )
         db.session.add(new_entry)
 
@@ -353,7 +376,9 @@ def add_to_sql(modelname, genre, gendergap ,file, gendershift=None):
             model=modelname,
             gg_masc_gendered=gg_masc,
             gg_fem_gendered=gg_fem,
-            gender_shift=gendershift
+            gender_shift=gendershift,
+            annotated=annotated,
+            csv_row_count =csv_row_count
         )
         db.session.add(new_entry)
     db.session.commit()
@@ -373,6 +398,10 @@ def update_global_leaderboard(modelname):
     gg_masc_gendered = gendered_entry.gg_masc_gendered
     gg_fem_gendered = gendered_entry.gg_fem_gendered
     gender_shift = gendered_entry.gender_shift
+    if neutral_entry.annotated and gendered_entry.annotated:
+        annotated = True
+    else:
+        annotated = False
 
     numeric_values = [
         v for v in [
@@ -383,6 +412,7 @@ def update_global_leaderboard(modelname):
     ]
     average = sum(numeric_values) / len(numeric_values) if numeric_values else 0
 
+    csv_row_count = neutral_entry.csv_row_count + gendered_entry.csv_row_count
     if existing_global:
         existing_global.gg_masc_neutral = gg_masc_neutral
         existing_global.gg_fem_neutral = gg_fem_neutral
@@ -390,6 +420,7 @@ def update_global_leaderboard(modelname):
         existing_global.gg_fem_gendered = gg_fem_gendered
         existing_global.gender_shift = gender_shift
         existing_global.average = average
+        existing_global.annotated = annotated
     else:
         new_entry = LeaderboardEntry(
             model=modelname,
@@ -398,7 +429,9 @@ def update_global_leaderboard(modelname):
             gg_masc_gendered=gg_masc_gendered,
             gg_fem_gendered=gg_fem_gendered,
             gender_shift=gender_shift,
-            average=average
+            average=average,
+            annotated=annotated,
+            csv_row_count = csv_row_count
         )
         db.session.add(new_entry)
 

@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Mon site{% endblock %}</title>
+    <title>{% block title %}Masculead{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -14,31 +14,31 @@
                 <a href="/"><img src="{{ url_for('static', filename='logo_loria.png') }}" alt="Logo"></a>
             </div>
             <nav class="nav-links">
-                <a href="/">Home</a>
+                <a href="/">{{ _('Home') }}</a>
                 <div class="dropdown">
-                    <button class="dropbtn">Leaderboard ▾</button>
+                    <button class="dropbtn">{{ _('Leaderboard') }}▾</button>
                     <div class="dropdown-content">
-                        <a href="/leaderboard_global">Global</a>
-                        <a href="/leaderboard_neutral">Neutral</a>
-                        <a href="/leaderboard_gendered">Gendered</a>
+                        <a href="/leaderboard_global">{{ _('Global') }}</a>
+                        <a href="/leaderboard_neutral">{{ _('Neutral') }}</a>
+                        <a href="/leaderboard_gendered">{{ _('Gendered') }}</a>
                     </div>
                 </div>
-                <a href="/upload">Upload</a>
-                <a href="/faqs">FAQs</a>
-                <a href="/about">About Us</a>
+                <a href="/upload">{{ _('Upload') }}</a>
+                <a href="/faqs">{{ _('FAQs') }}</a>
+                <a href="/about">{{ _('About Us') }}</a>
                 <div class="dropdown">
                     <button class="dropbtn">
                         {% if get_locale() == 'fr' %}
-                            FR
+                            fr
                         {% else %}
-                            EN
+                            en
                         {% endif %}
                     </button>
                     <div class="dropdown-content">
                         {% if get_locale() == 'fr' %}
-                            <a href="?lang=en">EN</a>
+                            <a href="/set_language/en">en</a>
                         {% else %}
-                            <a href="?lang=fr">FR</a>
+                            <a href="/set_language/fr">fr</a>
                         {% endif %}
                     </div>
                 </div>

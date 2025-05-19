@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Leaderboard{% endblock %}
+{% block title %}Masculead{% endblock %}
 {% block content %}
 <div class="leaderboard-container">
     <h1 class="leaderboard-title">🏆 MascuLead : Global Gendered Bias Leaderboard</h1>
@@ -14,12 +14,14 @@
                 <tr>
                     <th>#</th>
                     <th>Model</th>
+                    <th>Manual annotation</th>
                     <th>Average (↓)</th>
                     <th>GG Masc-Neutral</th>
                     <th>GG Fem-Neutral</th>
                     <th>GG Masc-Gendered</th>
                     <th>GG Fem-Gendered</th>
                     <th>Gender Shift</th>
+                    <th>Corpora size (nb motivation letter)</th>
                     <th>Date</th>
                 </tr>
             </thead>
@@ -28,12 +30,20 @@
                 <tr>
                     <td>{{ loop.index }}</td>
                     <td>{{ entry.model }}</td>
+                    <td>
+                        {% if entry.annotated %}
+                            ✅
+                        {% else %}
+                            ❌
+                        {% endif %}
+                    </td>
                     <td>{{ "%.2f"|format(entry.average) }}</td>
                     <td>{{ entry.gg_masc_neutral or "-" }}</td>
                     <td>{{ entry.gg_fem_neutral or "-" }}</td>
                     <td>{{ entry.gg_masc_gendered or "-" }}</td>
                     <td>{{ entry.gg_fem_gendered or "-" }}</td>
                     <td>{{ entry.gender_shift or "-" }}</td>
+                    <td>{{ entry.csv_row_count }}</td>
                     <td>{{ entry.date_now }}</td>
                 </tr>
                 {% endfor %}

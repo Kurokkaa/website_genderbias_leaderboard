@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Upload CSV{% endblock %}
+{% block title %}Masculead{% endblock %}
 
 {% block content %}
 <div id="loading-spinner" style="display: none;">
@@ -47,7 +47,14 @@
                             <label for="model_name" class="form-label">Model name (be as precise as possible!)</label>
                             <input type="text" class="form-control" name="model_name" id="model_name" placeholder="ex: mistral-7b, mistral-instruct-7b" required>
                         </div>
-
+                        <div class="mb-4">
+                            <label class="form-label">Are your data manually annotated?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="manual_annotation" id="manual_annotation" value="true">
+                                <label class="form-check-label" for="manual_annotation">Yes</label>
+                            </div>
+                            <input type="hidden" name="manual_annotation" value="false">
+                        </div>
                         <div class="mb-4">
                             <label class="form-label">Do you accept to add your results to the leaderboard?</label>
                             <div class="form-check">

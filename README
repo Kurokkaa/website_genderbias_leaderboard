@@ -1,0 +1,3 @@
+pybabel compile -d translations
+
+python app.py

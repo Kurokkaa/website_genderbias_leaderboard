@@ -18,3 +18,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
+msgid "Home"
+msgstr "Home"
+
+msgid "Leaderboard"
+msgstr "Leaderboard"
+
+msgid "Global"
+msgstr "Global"
+
+msgid "Neutral"
+msgstr "Neutral"
+
+msgid "Gendered"
+msgstr "Gendered"
+
+msgid "Upload"
+msgstr "Upload"
+
+msgid "FAQs"
+msgstr "FAQs"
+
+msgid "About Us"
+msgstr "About Us"
