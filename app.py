@@ -10,6 +10,7 @@ import shutil
 import json
 import spacy
 from model import db, LeaderboardEntry, LeaderboardEntry_neutral, LeaderboardEntry_gendered
+from flask_babel import Babel
 
 
 # Flask initialization
@@ -20,7 +21,24 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///leaderboard.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+#----------------------------------------Flask-babel----------------------------------------#
+babel = Babel(app)
 
+LANGUAGES = ['en', 'fr']
+
+def get_locale():
+    # Vérifiez si la langue est passée dans l'URL
+    lang = request.args.get('lang')
+    if lang in LANGUAGES:
+        return lang
+    # Sinon, utilisez la langue par défaut (anglais)
+    return 'en'
+
+@app.context_processor
+def inject_get_locale():
+    return dict(get_locale=get_locale)
+
+babel.init_app(app, locale_selector=get_locale)
 #----------------------------------------Pages----------------------------------------#
 @app.route('/')
 def accueil():

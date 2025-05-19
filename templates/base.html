@@ -26,6 +26,22 @@
                 <a href="/upload">Upload</a>
                 <a href="/faqs">FAQs</a>
                 <a href="/about">About Us</a>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        {% if get_locale() == 'fr' %}
+                            FR
+                        {% else %}
+                            EN
+                        {% endif %}
+                    </button>
+                    <div class="dropdown-content">
+                        {% if get_locale() == 'fr' %}
+                            <a href="?lang=en">EN</a>
+                        {% else %}
+                            <a href="?lang=fr">FR</a>
+                        {% endif %}
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -35,19 +51,24 @@
         {% block content %}{% endblock %}
     </main>
     <script>
-        const dropdown = document.querySelector('.dropdown');
+        // Sélectionnez tous les menus déroulants
+        const dropdowns = document.querySelectorAll('.dropdown');
         let timeoutId;
     
-        dropdown.addEventListener('mouseenter', () => {
-            clearTimeout(timeoutId); // Empêche la fermeture immédiate
-            dropdown.querySelector('.dropdown-content').style.display = 'block';
-        });
+        dropdowns.forEach(dropdown => {
+            // Lorsque la souris entre dans le menu déroulant
+            dropdown.addEventListener('mouseenter', () => {
+                clearTimeout(timeoutId); // Empêche la fermeture immédiate
+                dropdown.querySelector('.dropdown-content').style.display = 'block';
+            });
     
-        dropdown.addEventListener('mouseleave', () => {
-            // Garde le menu ouvert pendant 300ms après avoir quitté
-            timeoutId = setTimeout(() => {
-                dropdown.querySelector('.dropdown-content').style.display = 'none';
-            }, 300);
+            // Lorsque la souris quitte le menu déroulant
+            dropdown.addEventListener('mouseleave', () => {
+                // Garde le menu ouvert pendant 300ms après avoir quitté
+                timeoutId = setTimeout(() => {
+                    dropdown.querySelector('.dropdown-content').style.display = 'none';
+                }, 300);
+            });
         });
     </script>
 </body>
