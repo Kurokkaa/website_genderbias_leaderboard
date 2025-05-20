@@ -161,6 +161,7 @@ def leaderboard_gendered():
 def about():
     team = [
         {
+            "id": "fanny",
             "name": "Fanny Ducel",
             "role": "PhD Student at LISN",
             "description": "Bias analysis in Large Language Models",
@@ -168,6 +169,7 @@ def about():
             "image": "/static/img/fanny.jpg"
         },
         {
+            "id": "jeffrey",
             "name": "Jeffrey André",
             "role": "NLP Student",
             "description": "L3 Student at Univ. de Lorraine",
@@ -175,6 +177,7 @@ def about():
             "image": "/static/img/jeffrey.jpg"
         },
         {
+            "id": "karen",
             "name": "Karën Fort",
             "role": "Linguistic resources for NLP and professor at Univ. de Lorraine",
             "description": "Language resources and ethics for NLP",
@@ -182,6 +185,7 @@ def about():
             "image": "/static/img/karen.png"
         },
         {
+            "id": "aurelie",
             "name": "Aurélie Névéol",
             "role": "CNRS Researcher at LISN (formerly, LIMSI)",
             "description": "Clinical and biomedical Natural Language Processing",

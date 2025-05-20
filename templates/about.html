@@ -3,27 +3,24 @@
 {% block title %}Masculead{% endblock %}
 
 {% block content %}
-<h1>Members of this project</h1>
-    <div class="team-container">
-        {% for person in team %}
-        <div class="member-card">
-            <img src="{{ person.image }}" class="card-img-top member-img" alt="{{ person.name }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ person.name }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ person.role }}</h6>
-                <p class="card-text">{{ person.description }}</p>
-                <a href={{person.link}} target="_blank">{{person.link}} </a>
-            </div>
+<h1>{{_('about_title')}}</h1>
+<div class="team-container">
+    {% for person in team %}
+    <div class="member-card">
+        <img src="{{ person.image }}" class="card-img-top member-img" alt="{{ _('person_name_' + person.id) }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ _('person_name_' + person.id) }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ _('person_role_' + person.id) }}</h6>
+            <p class="card-text">{{ _('person_description_' + person.id) }}</p>
+            <a href="{{ person.link }}" target="_blank">{{ person.link }}</a>
         </div>
-        
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
     <div class="card">
-        <h3>Context of the project</h3>
-        <p>This website is a demonstration of the <a href="https://inria.hal.science/hal-04803403">"You'll be a nurse, my son!" paper</a> written by Fanny Ducel, Aurélie Névéol and Karën Fort.
-        It aims at evaluating gender biases in French (and Italian, and can be extended to other inflected languages) for the use-case of cover letter generation. </p>
-        <p>More generally, this article and associated tool are part of Fanny Ducel's PhD thesis on bias evaluation in autoregressive language models, which is directed by Karën Fort and Aurélie Névéol at Université Paris-Saclay. <br>
-            This thesis is associated with <a href="https://anr-inextenso.loria.fr/">InExtenso</a>, an ANR project in partnership with CHU Rouen, LISN and LORIA. </p>
-        <p> This website, as well as the leaderboards, were developed by Jeffrey André in the context of an internship.</p>
+        <h3>{{ _('foot_card_1') }}</h3>
+    <p>{{ _('foot_card_2')|safe }}</p>
+    <p>{{ _('foot_card_3')|safe }}</p>
+    <p>{{ _('foot_card_4') }}</p>
     </div>
 {% endblock %}

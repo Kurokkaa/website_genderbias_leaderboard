@@ -5,55 +5,32 @@
 {% block content %}
 
     <div class="home-content">
-        <h1>What's behind this framework?</h1>
-        <p class="lead">
+        <h1>{{ _('qun')}}</h1>
 
-            The framework aims at detecting <b>binary gender bias</b> in <b>French</b>. After generating texts that were written from the first person of singular, such as cover letters,
-            you can upload the CSV file containing the generations. We will perform an automatic gender detection and compute the bias metrics to evaluate the language model that was used.
-            You can use prompts that either contain a gender marker, or do not contain any gender markers (neutral).
+        <p class="lead">{{ _('run')}} </p>
+
+        <h2>{{ _('qdeux')}}</h2>
+
+        <p class="lead">
+            {{ _('rdeux')}}
+            {{ _('rdeux_ex')}}
         </p>
         
-        <h2> Gender detection </h2>
 
+     <h2>{{ _('qtrois_t')}}</h2>
 
-        <p class="lead"> With the gender detection system, the generated texts will be annotated with the <b>gender of the putative author</b> of the text.
-            The labels are: feminine, masculine, neutral (= no gender markers), or ambiguous (= as many masculine as feminine markers). <br>
-The systems relies on both machine learning (spacy, with camembert, a transformer-based model) and linguistic rules (based on lexical and semantic resources) to detect the gender markers.
-            The gender markers of a same text are then counted, and the gender with the highest numbers of associated markers is used as the label of the text.
-<br><br>
-<i> Example:
-The sentence "Je suis une femme passionnée d'informatique, j'ai fait un master en TAL et je suis dotée de compétences en linguistique." would be labeled as "feminine" because it
-    contains the several linguistic clues that encapsulate feminine markers: "femme", "passionnée" and "dotée". </i>
-        </p>
+        <h3>{{ _('qtrois')}}</h3>
 
-     <h2> Bias evaluation </h2>
+        <p class="lead">{{ _('rtrois')}}</p>
 
-        <h3>Gender Gap </h3>
-
-        <p class="lead"> The Gender Gap represents the representational gap between genders and highlights whether a gender is more present than the other.
-
-            It is <b>the difference of proportion of masculine texts and the proportion of feminine texts</b>. In the initial paper, Gender Gaps can be positive values (biased towards masculine)
-            or negative values (biased towards feminine). The ideal Gender Gap is 0, meaning that there are as many masculine and feminine texts. <br>
-
-However, to facilitate comparison with GS, the leaderboards use absolute values of the GenderGap, with the mention of the bias direction (GG-masc for previously positive scores, GG-fem for previously negative scores).
-<br><br>
-<i>Example: If a corpus of generated texts contain 80% of masculine generations, 15% of feminine generations, 3% of neutral generations, and 2% of ambiguous generations,
-    its Gender Gap will be 65 (80 - 15). </i> </p>
-
-        <h3>Gender Shift</h3>
-        <p class="lead">The Gender Shift is only used on texts that were generated with gendered prompts. It targets texts that <b>override the gender of the prompt</b>, i.e. a text that is labeled as masculine whereas its prompt was feminine.
-
-It is the proportion of texts that are inconsistent with the prompted gender. It is the sum of the proportion of texts that override the prompted gender and the proportion of ambiguous texts.
-<br><br>
-            <i>Example: We only look at generations that answer feminine prompts. If 60% of them are feminine, 20% are masculine, 5% are ambiguous, and 15% are neutral,
-                the Gender Shift is 25% (20 + 5).</i>
+        <h3>{{ _('qquatre')}}</h3>
+        <p class="lead">
+            {{ _('rquatre')}}
         </p>
 
      <h2> MascuLead </h2>
 
-        <p class="lead"> MascuLead is the name of the leaderboard that is based on GenderGap and GenderShift. The scores are separated depending on the direction of the GenderGap
-            (is its bias favoring masculine or feminine markers?), and on the type of prompts that was used (neutral or gendered?). More details about this leaderboard and its importance
-            are detailed in this paper (link TBA). </p>
+        <p class="lead">{{ _('rcinq')}} (lien à venir).</p>
 
 </div>
 {% endblock %}

@@ -3,9 +3,9 @@
 {% block title %}Masculead{% endblock %}
 {% block content %}
 <div class="leaderboard-container">
-    <h1 class="leaderboard-title">🏆 MascuLead : Global Gendered Bias Leaderboard</h1>
+    <h1 class="leaderboard-title">🏆 {{_('leaderboard_title_gl')}}</h1>
    <p>*GG = Gender Gap <br>
-    Leaderboard for cover letters that were generated with both neutral and gendered prompts.
+    {{_('leaderboard_global_def')}}
     </p>
 
     <div class="leaderboard-card">
@@ -13,15 +13,15 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Model</th>
-                    <th>Manual annotation</th>
-                    <th>Average (↓)</th>
+                    <th>{{_('model_column')}}</th>
+                    <th>{{_('Manual_anno_cl')}}</th>
+                    <th>{{_('avg_cl')}} (↓)</th>
                     <th>GG Masc-Neutral</th>
                     <th>GG Fem-Neutral</th>
                     <th>GG Masc-Gendered</th>
                     <th>GG Fem-Gendered</th>
                     <th>Gender Shift</th>
-                    <th>Corpora size (nb motivation letter)</th>
+                    <th>{{_('corpus_size_cl')}}</th>
                     <th>Date</th>
                 </tr>
             </thead>

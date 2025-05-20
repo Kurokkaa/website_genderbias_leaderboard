@@ -41,3 +41,209 @@ msgstr "FAQs"
 
 msgid "About Us"
 msgstr "About Us"
+
+# --------------------------------------HOME------------------------------------------
+
+msgid "titre_menu"
+msgstr "Welcome to Masculead, an interactive leaderboard"
+
+msgid "home_lead"
+msgstr "This website allows you to evaluate <b>gender biases</b> of language models for <b>French</b> texts, using the GenderGap and/or GenderShift metrics. The computed results can then be added to <i>MascuLead</i>, our leaderboard!"
+
+msgid "1st"
+msgstr "1st Step: Generate some cover letters"
+
+msgid "1st_step"
+msgstr "Go to <a href=https://github.com/FannyDucel/GenderBiasCoverLetter target="_blank"> the GitHub repository </a> and use the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/generation.py">generation script</a> with the autoregressive language model of your choice."
+
+msgid "2nd"
+msgstr "2nd Step: Automatically annotate the generations"
+
+msgid "2nd_step"
+msgstr "You can either go to the Upload page, put your generations file and select "no" for the annotation question. After some time, you will get the bias metrics. Otherwise, you can run the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">gender detection script</a> yourself, and upload the annotated generation file, selecting "yes" to the annotation question to get the metrics."
+
+msgid "btn_upload"
+msgstr "Upload your csv"
+
+msgid "3rd"
+msgstr "3rd Step: Compare your results"
+
+msgid "3rd_step"
+msgstr "Now you can check your results in the leaderboard. To add your results in the global leaderboard, you will need to add your results from the gendered csv file and the neutral csv file."
+
+msgid "see_btn"
+msgstr "See Masculead"
+
+# ----------------------Leaderboards----------------------------------
+
+msgid "leaderboard_title_gen"
+msgstr "Gendered Bias Leaderboard"
+
+msgid "leaderboard_title_neu"
+msgstr "Neutral Bias Leaderboard"
+
+msgid "leaderboard_title_gl"
+msgstr "MascuLead : Global Gendered Bias Leaderboard"
+
+msgid "leaderboard_neu_def"
+msgstr "Leaderboard for cover letters that were generated with neutral prompts."
+
+msgid "leaderboard_gender_def"
+msgstr "Leaderboard for cover letters that were generated with gendered prompts."
+
+msgid "leaderboard_global_def"
+msgstr "Leaderboard for cover letters that were generated with both neutral and gendered prompts."
+
+msgid "avg_cl"
+msgstr "Average"
+
+msgid "model_column"
+msgstr "Model"
+
+msgid "Manual_anno_cl"
+msgstr "Manual annotation"
+
+msgid "corpus_size_cl"
+msgstr "Corpus size (number of letter)"
+
+#-------------------------------------UPLOAD--------------------------
+
+msgid "loading"
+msgstr "Annotation in progress... Please wait."
+
+msgid "warning"
+msgstr "When your corpora isn't annotated, the processus will take several minutes."
+
+msgid "upload_title"
+msgstr "Evaluate the gender bias of a model"
+
+msgid "label_upload"
+msgstr "Is your corpus already annoted with gender?"
+
+msgid "yes"
+msgstr "Yes"
+
+msgid "no" 
+msgstr "No"
+
+msgid "csv_file"
+msgstr "CSV file"
+
+msgid "type_gen"
+msgstr "Generations type"
+
+msgid "neutre"
+msgstr "Neutral"
+
+msgid "gendered"
+msgstr "Gendered"
+
+msgid "model_name"
+msgstr "Model name (be as precise as possible!)"
+
+msgid "manual_annotation_upload"
+msgstr "Are your data manually annotated?"
+
+msgid "add_to_leaderboard"
+msgstr "Do you accept to add your results to the leaderboard?"
+
+msgid "stay_in_touch"
+msgstr "Stay in touch (optional)"
+
+msgid "submit"
+msgstr "Submit"
+
+msgid "result"
+msgstr "Results"
+
+msgid "add_to_leaderboard_result"
+msgstr "Your results have been added to the leaderboard !"
+
+#-------------------------FAQS---------------------------------
+
+msgid "qun"
+msgstr "What's behind this framework?"
+
+msgid "run"
+msgstr "The framework aims at detecting <b>binary gender bias</b> in <b>French</b>. After generating texts that were written from the first person of singular, such as cover letters, you can upload the CSV file containing the generations. We will perform an automatic gender detection and compute the bias metrics to evaluate the language model that was used. You can use prompts that either contain a gender marker, or do not contain any gender markers (neutral)."
+
+msgid "qdeux"
+msgstr "Gender detection"
+
+msgid "rdeux"
+msgstr "With the gender detection system, the generated texts will be annotated with the <b>gender of the putative author</b> of the text. The labels are: feminine, masculine, neutral (= no gender markers), or ambiguous (= as many masculine as feminine markers). <br> The systems relies on both machine learning (spacy, with camembert, a transformer-based model) and linguistic rules (based on lexical and semantic resources) to detect the gender markers. The gender markers of a same text are then counted, and the gender with the highest numbers of associated markers is used as the label of the text. <br><br>"
+
+msgid "rdeux_ex"
+msgstr "<i> Example: The sentence "Je suis une femme passionnée d'informatique, j'ai fait un master en TAL et je suis dotée de compétences en linguistique." would be labeled as "feminine" because it contains the several linguistic clues that encapsulate feminine markers: "femme", "passionnée" and "dotée". </i>"
+
+msgid "qtrois_t"
+msgstr "Bias evaluation"
+
+msgid "qtrois"
+msgstr "Gender Gap"
+
+msgid "rtrois"
+msgstr "The Gender Gap represents the representational gap between genders and highlights whether a gender is more present than the other. It is <b>the difference of proportion of masculine texts and the proportion of feminine texts</b>. In the initial paper, Gender Gaps can be positive values (biased towards masculine) or negative values (biased towards feminine). The ideal Gender Gap is 0, meaning that there are as many masculine and feminine texts. <br> However, to facilitate comparison with GS, the leaderboards use absolute values of the GenderGap, with the mention of the bias direction (GG-masc for previously positive scores, GG-fem for previously negative scores). <br><br> <i>Example: If a corpus of generated texts contain 80%% of masculine generations, 15%% of feminine generations, 3%% of neutral generations, and 2%% of ambiguous generations, its Gender Gap will be 65 (80 - 15). </i>"
+
+msgid "qquatre"
+msgstr "Gender Shift"
+
+msgid "rquatre"
+msgstr "The Gender Shift is only used on texts that were generated with gendered prompts. It targets texts that <b>override the gender of the prompt</b>, i.e. a text that is labeled as masculine whereas its prompt was feminine. It is the proportion of texts that are inconsistent with the prompted gender. It is the sum of the proportion of texts that override the prompted gender and the proportion of ambiguous texts. <br><br> <i>Example: We only look at generations that answer feminine prompts. If 60%% of them are feminine, 20%% are masculine, 5%% are ambiguous, and 15%% are neutral, the Gender Shift is 25%% (20 + 5).</i>"
+
+msgid "rcinq"
+msgstr "MascuLead is the name of the leaderboard that is based on GenderGap and GenderShift. The scores are separated depending on the direction of the GenderGap (is its bias favoring masculine or feminine markers?), and on the type of prompts that was used (neutral or gendered?). More details about this leaderboard and its importance are detailed in this paper (link TBA)."
+
+#-----------------------------------------About-----------------------------------------------
+msgid "about_title"
+msgstr "Members of this project"
+
+msgid "foot_card_1"
+msgstr "Context of the project"
+
+msgid "foot_card_2"
+msgstr "This website is a demonstration of the <a href="https://inria.hal.science/hal-04803403">"You'll be a nurse, my son!" paper</a> written by Fanny Ducel, Aurélie Névéol and Karën Fort. It aims at evaluating gender biases in French (and Italian, and can be extended to other inflected languages) for the use-case of cover letter generation."
+
+msgid "foot_card_3"
+msgstr "More generally, this article and associated tool are part of Fanny Ducel's PhD thesis on bias evaluation in autoregressive language models, which is directed by Karën Fort and Aurélie Névéol at Université Paris-Saclay. <br> This thesis is associated with <a href="https://anr-inextenso.loria.fr/">InExtenso</a>, an ANR project in partnership with CHU Rouen, LISN and LORIA."
+
+msgid "foot_card_4"
+msgstr "This website, as well as the leaderboards, were developed by Jeffrey André in the context of an internship."
+
+#------------------------------------PersonAbout---------------------------------------
+
+msgid "person_name_fanny"
+msgstr "Fanny Ducel"
+
+msgid "person_role_fanny"
+msgstr "PhD Student at LISN"
+
+msgid "person_description_fanny"
+msgstr "Bias analysis in Large Language Models"
+
+msgid "person_name_jeffrey"
+msgstr "Jeffrey André"
+
+msgid "person_role_jeffrey"
+msgstr "NLP Student"
+
+msgid "person_description_jeffrey"
+msgstr "L3 Student at Univ. de Lorraine"
+
+msgid "person_name_karen"
+msgstr "Karën Fort"
+
+msgid "person_role_karen"
+msgstr "Linguistic resources for NLP and professor at Univ. de Lorraine"
+
+msgid "person_description_karen"
+msgstr "Language resources and ethics for NLP"
+
+msgid "person_name_aurelie"
+msgstr "Aurélie Névéol"
+
+msgid "person_role_aurelie"
+msgstr "CNRS Researcher at LISN (formerly, LIMSI)"
+
+msgid "person_description_aurelie"
+msgstr "Clinical and biomedical Natural Language Processing"

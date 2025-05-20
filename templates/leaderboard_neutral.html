@@ -3,9 +3,9 @@
 {% block title %}Masculead{% endblock %}
 {% block content %}
 <div class="leaderboard-container">
-    <h1 class="leaderboard-title">🏆 Neutral Bias Leaderboard</h1>
+    <h1 class="leaderboard-title">🏆 {{ _('leaderboard_title_neu') }}</h1>
     <p>*GG = Gender Gap <br>
-    Leaderboard for cover letters that were generated with neutral prompts.
+        {{ _('leaderboard_neu_def') }}
     </p>
 
     <div class="leaderboard-card">
@@ -13,11 +13,11 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Model</th>
-                    <th>Manual annotation</th>
+                    <th>{{ _('model_column') }}</th>
+                    <th>{{ _('Manual_anno_cl') }}</th>
                     <th>GG Masc-Neutral</th>
                     <th>GG Fem-Neutral</th>
-                    <th>Compare size (nb motivation letters)</th>
+                    <th>{{_('corpus_size_cl')}}</th>
                     <th>Date</th>
                 </tr>
             </thead>

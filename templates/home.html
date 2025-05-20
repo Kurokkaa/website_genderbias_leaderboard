@@ -5,34 +5,29 @@
 {% block content %}
 <div class="home-background">
     <div class="home-content">
-        <h1>Welcome to Masculead, an interactive leaderboard</h1>
+        <h1>{{ _('titre_menu') }}</h1>
         <p class="lead">
-            This website allows you to evaluate <b>gender biases</b> of language models for <b>French</b> texts, using the GenderGap and/or GenderShift metrics. The computed results can then be added to <i>MascuLead</i>, our leaderboard!
+            {{_('home_lead')}}
         </p>
         
         <div class="feature-cards">
             <div class="card">
-                <h3>1st Step: Generate some cover letters</h3>
-                <p>
-                    Go to <a href=https://github.com/FannyDucel/GenderBiasCoverLetter target="_blank"> the GitHub repository </a> and use the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/generation.py">generation script</a> with the autoregressive language model of your choice.
-                </p>
+                <h3>{{ _('1st') }}</h3>
+                <p>{{_('1st_step')|safe}}</p>
             </div>
             <div class="card">
-                <h3>2nd Step: Automatically annotate the generations</h3>
+                <h3>{{_('2nd')}}</h3>
                 <p>
-                    You can either go to the Upload page, put your generations file and select "no" for the annotation question. After some time, you will get the bias metrics.
-                    Otherwise, you can run the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">gender detection script</a> yourself, and upload the annotated generation file, selecting "yes" to the annotation question to get the metrics.
-
+                    {{_('2nd_step')|safe}}
                 </p>
-                <a href="/upload" class="btn-outline-primary">Upload your csv</a>
+                <a href="/upload" class="btn-outline-primary">{{_('btn_upload')|safe}}</a>
             </div>
             <div class="card">
-                <h3>3rd Step: Compare your results</h3>
+                <h3>{{_('3rd')}}</h3>
                 <p>
-                    Now you can check your results in the leaderboard.
-                    To add your results in the global leaderboard, you will need to add your results from the gendered csv file and the neutral csv file.
+                    {{_('3rd_step')}}
                 </p>
-                <a href="/leaderboard_global" class="btn-outline-primary">See Masculead</a>
+                <a href="/leaderboard_global" class="btn-outline-primary">{{_('see_btn')}}</a>
             </div>
         </div>
     </div>
