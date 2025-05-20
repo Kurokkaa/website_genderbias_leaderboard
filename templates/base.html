@@ -13,6 +13,7 @@
             <div class="logo">
                 <a href="/"><img src="{{ url_for('static', filename='logo_loria.png') }}" alt="Logo"></a>
             </div>
+            <button class="hamburger" id="hamburger"></button>
             <nav class="nav-links">
                 <a href="/">{{ _('Home') }}</a>
                 <div class="dropdown">
@@ -51,25 +52,39 @@
         {% block content %}{% endblock %}
     </main>
     <script>
-        // Sélectionnez tous les menus déroulants
+        // Menu déroulant hover (déjà présent)
         const dropdowns = document.querySelectorAll('.dropdown');
         let timeoutId;
     
         dropdowns.forEach(dropdown => {
-            // Lorsque la souris entre dans le menu déroulant
             dropdown.addEventListener('mouseenter', () => {
-                clearTimeout(timeoutId); // Empêche la fermeture immédiate
+                clearTimeout(timeoutId);
                 dropdown.querySelector('.dropdown-content').style.display = 'block';
             });
-    
-            // Lorsque la souris quitte le menu déroulant
             dropdown.addEventListener('mouseleave', () => {
-                // Garde le menu ouvert pendant 300ms après avoir quitté
                 timeoutId = setTimeout(() => {
                     dropdown.querySelector('.dropdown-content').style.display = 'none';
                 }, 300);
             });
         });
+    
+        // Nouveau : gestion du menu mobile
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links')
+    
+        hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+        hamburger.classList.toggle('open'); // change en croix
+    });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('show');
+            hamburger.classList.remove('open');
+        });
+    });
     </script>
+    
+    
 </body>
 </html>

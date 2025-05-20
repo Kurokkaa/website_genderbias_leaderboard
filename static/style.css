@@ -701,8 +701,20 @@ p.lead {
 
 /* ----------- RESPONSIVE DESIGN POUR TOUT LE SITE ----------- */
 
-/* TABLETTES (entre 577px et 992px) */
-@media (max-width: 992px) {
+.hamburger {
+    display: none;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: #2c3e50;
+    cursor: pointer;
+    z-index: 1001; 
+}
+
+
+/* TABLETTES */
+@media (max-width: 1000px) {
+    
     .container {
         flex-direction: column;
     }
@@ -747,26 +759,21 @@ p.lead {
         align-items: center;
     }
 
-    .nav-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
     .leaderboard-card {
         padding: 15px;
     }
 }
 
-/* SMARTPHONES (≤576px) */
-@media (max-width: 576px) {
+/* SMARTPHONES*/
+@media (max-width: 1000px) {
     .container {
         flex-direction: column;
+    }
+
+    .sidebar .dropdown {
+        width: 100%;
+        position: relative;
+        z-index: 10;
     }
 
     .sidebar {
@@ -793,8 +800,9 @@ p.lead {
     }
 
     .card {
-        padding: 20px;
+        padding: 3px;
         max-width: 100%;
+        box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
     }
 
     .leaderboard-title {
@@ -815,7 +823,7 @@ p.lead {
     .nav-links {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 10px;border-bottom: none;
         width: 100%;
     }
 
@@ -829,5 +837,113 @@ p.lead {
 
     p, .card-text, .card-subtitle {
         font-size: 0.95rem;
+    }
+    
+}
+
+/* Menu mobile */
+@media (max-width: 1000px) {
+    .card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+        transition: none !important;
+    }
+    .nav-links a::after {
+        content: none;
+    }
+    .navbar a {
+        text-decoration: none !important; 
+        color: inherit !important; 
+        transition: none !important; 
+        border-bottom: none;
+    }
+    .navbar a, 
+    .dropdown-content a, 
+    .btn-primary {
+        outline: none !important; 
+        box-shadow: none !important;
+    }
+
+    .dropdown-content a {
+        background-color: transparent !important; 
+        transition: none !important;
+    }
+
+    .btn-primary:hover {
+        transform: none !important; 
+        background-color: #3498db !important; 
+    }
+    .nav-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    
+    .hamburger {
+        display: block;
+        z-index: 1001;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        width: 100%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        animation: slideDown 0.3s ease forwards;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links a,
+    .nav-links .dropdown {
+        padding: 14px 20px;
+        width: 100%;
+        border-top: 1px solid #eee;
+    }
+
+    .nav-links .dropdown-content {
+        position: relative;
+        top: auto;
+        left: auto;
+        box-shadow: none;
+        border-radius: 0;
+        background-color: transparent;
+        padding-left: 10px;
+    }
+
+    /* Icône burger → croix */
+    .hamburger.open::before {
+        content: "✕";
+    }
+
+    .hamburger::before {
+        display: inline-block;
+        content: "☰";
+    }
+
+    .hamburger.open {
+        color: #000;
+    }
+
+    /* Animation d'ouverture */
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 }
