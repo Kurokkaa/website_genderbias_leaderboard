@@ -765,7 +765,7 @@ p.lead {
 }
 
 /* SMARTPHONES*/
-@media (max-width: 1000px) {
+@media (max-width: 600px) {
     .container {
         flex-direction: column;
     }
@@ -839,9 +839,6 @@ p.lead {
         font-size: 0.95rem;
     }
     
-}
-
-@media (max-width: 600px) {
     .member-card:hover {
         transform: none !important; 
         box-shadow: none !important; 
