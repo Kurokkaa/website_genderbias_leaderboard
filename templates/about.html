@@ -10,9 +10,9 @@
         <img src="{{ person.image }}" class="card-img-top member-img" alt="{{ _('person_name_' + person.id) }}">
         <div class="card-body">
             <h5 class="card-title">{{ _('person_name_' + person.id) }}</h5>
+            <a href="{{ person.link }}" target="_blank">{{ person.link }}</a>
             <h6 class="card-subtitle mb-2 text-muted">{{ _('person_role_' + person.id) }}</h6>
             <p class="card-text">{{ _('person_description_' + person.id) }}</p>
-            <a href="{{ person.link }}" target="_blank">{{ person.link }}</a>
         </div>
     </div>
     {% endfor %}

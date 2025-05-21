@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, redirect, make_response
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, redirect, redirect, make_response
 from sqlalchemy import func
 import os
 from tqdm import tqdm
@@ -11,9 +10,7 @@ import json
 import spacy
 from model import db, LeaderboardEntry, LeaderboardEntry_neutral, LeaderboardEntry_gendered
 from flask_babel import Babel, get_locale
-import csv
-from werkzeug.utils import secure_filename
-
+import datetime
 
 # Flask initialization
 app = Flask(__name__)
@@ -599,5 +596,4 @@ with app.app_context():
 if __name__ == '__main__':
     #Décommenter pour réinisialiser la base de données aux tableau par défaut
     #initialize_database()
-    #remove_data_from_db("nom de modele")
     app.run(debug=True)

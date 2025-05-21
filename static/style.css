@@ -255,7 +255,7 @@ body {
     object-position: center; /* Centrage de l'image */
     border-radius: 10px; /* Bord arrondi */
     display: block;
-    margin: 15px auto 15px auto;  /* Centre horizontalement + marge bas */
+    margin: 15px auto 0px auto;  /* Centre horizontalement + marge bas */
 }
 
 /* Style du corps de la carte */
@@ -744,7 +744,7 @@ p.lead {
     }
 
     .team-container {
-        padding: 20px;
+        padding: 0px;
         margin-left: 0;
         justify-content: center;
     }
@@ -791,7 +791,7 @@ p.lead {
     }
 
     .member-card {
-        width: 100%;
+        width: 45%;
         height: auto;
     }
 
@@ -841,8 +841,49 @@ p.lead {
     
 }
 
+@media (max-width: 600px) {
+    .member-card:hover {
+        transform: none !important; 
+        box-shadow: none !important; 
+        transition: none !important; 
+        cursor: default;
+    }
+
+    .member-card {
+        width: 90%;
+        height: auto;
+    }
+
+    .card {
+        padding: 10px;
+        max-width: 100%;
+        box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .leaderboard-title {
+        font-size: 1.5rem;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+}
+
 /* Menu mobile */
 @media (max-width: 1000px) {
+    .member-card:hover {
+        transform: none !important; 
+        box-shadow: none !important; 
+        transition: none !important; 
+        cursor: default;
+    }
+    
+    .member-card {
+        transform: none !important;
+        padding-bottom: 5%;
+    }
     .card:hover {
         transform: none !important;
         box-shadow: none !important;

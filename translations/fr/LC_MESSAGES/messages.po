@@ -140,7 +140,7 @@ msgstr "Corpus size (number of letter)"
 #-------------------------------------UPLOAD--------------------------
 
 msgid "loading"
-msgstr "Annotation en cours... veuillez patienter"
+msgstr "Annotation en cours... Veuillez patienter"
 
 msgid "warning"
 msgstr "Lorsque le corpus n'est pas annoté, cela peut prendre une dizaine de minute."
