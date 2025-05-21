@@ -214,44 +214,6 @@ def get_models(leaderboard):
     model_names = [entry.model for entry in models]
     return jsonify({"models": model_names})
 
-"""
-@app.route('/delete_entry', methods=['POST'])
-def delete_entry():
-    model_name = request.form['model']
-    leaderboard = request.form['leaderboard']
-
-    if leaderboard == "neutral":
-        model_entry = LeaderboardEntry_neutral.query.filter_by(model=model_name).first()
-        if model_entry:
-            db.session.delete(model_entry)
-            db.session.commit()
-        else:
-            return render_template('delete_entry.html', error_message="Model not found in the 'Neutral' leaderboard.")
-    
-    elif leaderboard == "gendered":
-        model_entry = LeaderboardEntry_gendered.query.filter_by(model=model_name).first()
-        if model_entry:
-            db.session.delete(model_entry)
-            db.session.commit()
-        else:
-            return render_template('delete_entry.html', error_message="Model not found in the 'Gendered' leaderboard.")
-
-    # Vérification si le modèle est dans les deux bases de données
-    neutral_entry = LeaderboardEntry_neutral.query.filter_by(model=model_name).first()
-    gendered_entry = LeaderboardEntry_gendered.query.filter_by(model=model_name).first()
-
-    if not neutral_entry or not gendered_entry:
-        return render_template('delete_entry.html', success_message=f"Model '{model_name}' deleted from '{leaderboard}' leaderboard.")
-    
-    # Si le modèle est dans les deux, on le supprime du leaderboard global
-    global_entry = LeaderboardEntry.query.filter_by(model=model_name).first()
-    if global_entry:
-        db.session.delete(global_entry)
-        db.session.commit()
-
-    return render_template('delete_entry.html', success_message=f"Model '{model_name}' deleted from both '{leaderboard}' leaderboard and global leaderboard.")
-"""
-
 #----------------------------------------Functions----------------------------------------#
 def email_sav(model_name, email, filepath="save/email.txt"):
     with open(filepath, "a", encoding="utf-8") as f:
@@ -636,6 +598,6 @@ with app.app_context():
 
 if __name__ == '__main__':
     #Décommenter pour réinisialiser la base de données aux tableau par défaut
-    initialize_database()
+    #initialize_database()
     #remove_data_from_db("nom de modele")
     app.run(debug=True)
