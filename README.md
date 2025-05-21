@@ -1,3 +1,7 @@
+## Contexte 
+
+Ce site web sert à utiliser l'outil créé par Fanny Ducel, dans le cadre d'un stage. (https://github.com/FannyDucel/GenderBiasCoverLetter)
+
 # Executer pour lancer le site web :
 python app.py ou flask run
 
