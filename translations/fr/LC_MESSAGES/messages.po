@@ -211,6 +211,9 @@ msgstr "<i>Exemple : La phrase « Je suis une femme passionnée d'informatique, 
 msgid "qdeux_t"
 msgstr "Évaluation des biais"
 
+msgid "qtrois_t"
+msgstr "Évaluation des biais"
+
 msgid "qtrois"
 msgstr "Écart de genre (Gender Gap)"
 
