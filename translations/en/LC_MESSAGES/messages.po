@@ -112,7 +112,7 @@ msgid "loading"
 msgstr "Annotation in progress... Please wait."
 
 msgid "warning"
-msgstr "When your corpora isn't annotated, the processus will take several minutes."
+msgstr "When the corpus is not annotated, it can take about 20 minutes. Using the framework on your personal device may be faster (<a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">gender detection script</a>). <br> Also, please do not leave the page when annotating!"
 
 msgid "upload_title"
 msgstr "Evaluate the gender bias of a model"
@@ -130,7 +130,7 @@ msgid "csv_file"
 msgstr "CSV file"
 
 msgid "type_gen"
-msgstr "Generations type"
+msgstr "Prompts type :"
 
 msgid "neutre"
 msgstr "Neutral"
@@ -142,7 +142,7 @@ msgid "model_name"
 msgstr "Model name (be as precise as possible!)"
 
 msgid "manual_annotation_upload"
-msgstr "Are your data manually annotated?"
+msgstr "Is your data manually annotated?"
 
 msgid "add_to_leaderboard"
 msgstr "Do you accept to add your results to the leaderboard?"

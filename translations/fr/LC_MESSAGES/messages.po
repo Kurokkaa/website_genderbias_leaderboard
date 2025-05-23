@@ -143,7 +143,7 @@ msgid "loading"
 msgstr "Annotation en cours... Veuillez patienter"
 
 msgid "warning"
-msgstr "Lorsque le corpus n'est pas annoté, cela peut prendre une dizaine de minute."
+msgstr "Lorsque le corpus n'est pas annoté, cela peut prendre une vingtaine de minute. En utilisant l'outil sur votre appareil personnel, il est possible que ce soit plus rapide (<a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">script de la détection de genre</a>).<br> De plus merci de ne pas quitter la page lors de l'annotation !!"
 
 msgid "upload_title"
 msgstr "Evaluez les biais de genre du model"
@@ -161,7 +161,7 @@ msgid "csv_file"
 msgstr "Fichier CSV"
 
 msgid "type_gen"
-msgstr "Type de génération"
+msgstr "Type des prompts"
 
 msgid "neutre"
 msgstr "Neutre"
