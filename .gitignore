@@ -10,3 +10,5 @@ messages.pot
 
 *.mo
 *.pot
+
+*.db
