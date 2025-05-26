@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, redirect, make_response
+from flask import Flask, render_template, request, redirect, redirect, make_response, jsonify
 from sqlalchemy import func
 import os
 from tqdm import tqdm
@@ -11,6 +11,12 @@ import spacy
 from model import db, LeaderboardEntry, LeaderboardEntry_neutral, LeaderboardEntry_gendered
 from flask_babel import Babel, get_locale
 import datetime
+from celery_worker import make_celery
+from celery.result import AsyncResult
+from flask_socketio import SocketIO
+
+
+
 
 # Flask initialization
 app = Flask(__name__)
@@ -20,7 +26,76 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///leaderboard.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+celery = make_celery(app)
 db.init_app(app)
+socketio = SocketIO(app)
+
+#----------------------------------------Celery----------------------------------------#
+@app.route('/cancel_task/<task_id>', methods=['POST'])
+def cancel_task(task_id):
+    result = AsyncResult(task_id, app=celery)
+    result.revoke(terminate=True)
+    return render_template('upload.html', task_id=task_id, cancelled=True)
+
+
+@celery.task(bind=True)
+def apply_gender_detection_async(self, csv_path, model_name, setting):
+    df_lm = pd.read_csv(csv_path)
+
+    lm = df_lm["output"]
+    lm.fillna("", inplace=True)
+    prompt = df_lm["prompt"]
+
+    total_gender_theme = {}
+    total_gender = [] #list with all identified gender in order to add to pd
+    total_counter = [] #list with all counters to get dic with identified genders details for each letter
+    total_markers = [] #same for gendered words that led to this gender identification
+
+    for i,lettre in tqdm(enumerate(lm)):
+        self.update_state(state='PROGRESS', meta={'current': i + 1, 'total': len(lm)})
+        #print(i,lettre)
+        # Separate prompt sentences from the rest
+        prompt2 = ".".join(prompt[i].split(".")[:-1])
+        lettre_noprompt = lettre.split(prompt[i])[-1]
+        lettre = lettre.split(prompt2)[-1]
+        # filter out the incomplete generations : less than 5 tokens + loop on one token = less than 5 unique tokens
+        if len(set(lettre_noprompt.split())) > 5 and ("je" in lettre_noprompt or "j'" in lettre_noprompt or "Je" in lettre_noprompt or "J'" in lettre_noprompt):
+            gender = get_gender(lettre)
+        else:
+            gender = ["incomplet/pas de P1",0,"none"]
+
+        total_gender.append(gender[0])
+        total_counter.append(gender[1])
+        total_markers.append(gender[2])
+        theme = df_lm["theme"][i]
+
+        if theme not in total_gender_theme:
+            total_gender_theme[theme]=[]
+        total_gender_theme[theme].append(gender[0])
+
+    df_lm["Identified_gender"]=total_gender
+    df_lm["Detailed_counter"] = total_counter
+    df_lm["Detailed_markers"] = total_markers
+
+    df_lm.to_csv(f"./uploads/annoted_{model_name}_{setting}.csv", index=False)
+    return {'current': len(lm), 'total': len(lm), 'status': 'Task completed!'}
+
+
+@app.route('/task_status/<task_id>')
+def task_status(task_id):
+    task = AsyncResult(task_id, app=celery)
+    if task.state == 'PENDING':
+        response = {'state': task.state, 'progress': 0}
+    elif task.state == 'PROGRESS':
+        response = {
+            'state': task.state,
+            'progress': int(100 * task.info['current'] / task.info['total'])
+        }
+    elif task.state == 'SUCCESS':
+        response = {'state': task.state, 'progress': 100}
+    else:
+        response = {'state': task.state, 'progress': 0}
+    return jsonify(response)
 #----------------------------------------Flask-babel----------------------------------------#
 babel = Babel()
 
@@ -79,10 +154,10 @@ def upload():
             df["modele"] = model_name_select
             df["genre"] = data_type_select
         elif annoted_select == "no":
-            apply_gender_detection(file, model_name_select, data_type_select)
-            df = pd.read_csv(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
-            df["modele"] = model_name_select
-            df["genre"] = data_type_select
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(file_path)
+            task = apply_gender_detection_async.apply_async(args=[file_path, model_name_select, data_type_select])
+            return render_template('upload.html', task_id=task.id)
             
         csv_rows_count = len(df) -1
 
@@ -596,4 +671,4 @@ with app.app_context():
 if __name__ == '__main__':
     #Décommenter pour réinisialiser la base de données aux tableau par défaut
     #initialize_database()
-    app.run(debug=True)
+    socketio.run(app, debug=True)

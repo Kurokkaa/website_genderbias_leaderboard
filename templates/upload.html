@@ -7,6 +7,15 @@
     <div class="loading-card">
         <div class="spinner"></div>
         <p>{{_('loading')}}</p>
+        <div id="progress-section" style="display:none; margin-top: 20px;">
+            <div class="text-center mb-2">
+                <strong>{{ _('analyse_en_cours') if _('analyse_en_cours') else 'Analyse en cours...' }}</strong>
+            </div>
+            <progress id="progress-bar" value="0" max="100" style="width: 100%; height: 20px;"></progress>
+            <div class="text-center mt-2">
+                <button id="cancel-button" class="btn btn-danger">❌ Annuler</button>
+            </div>
+        </div>
     </div>
 </div>
     <div class="row justify-content-center">
@@ -100,4 +109,47 @@
             }
         });
         </script>
+<script>
+    const taskId = "{{ task_id }}";
+    if (taskId) {
+        document.getElementById('loading-spinner').style.display = 'flex';
+        document.getElementById('progress-section').style.display = 'block';
+
+        const progressBar = document.getElementById('progress-bar');
+        const cancelButton = document.getElementById('cancel-button');
+
+        const interval = setInterval(() => {
+            fetch(`/task_status/${taskId}`)
+                .then(response => response.json())
+                .then(data => {
+                    progressBar.value = data.progress;
+                    if (data.state === 'SUCCESS' || data.state === 'FAILURE') {
+                        clearInterval(interval);
+                        location.reload();  // Recharge la page pour afficher les résultats
+                    }
+                });
+        }, 2000);
+
+        cancelButton.onclick = function () {
+            fetch('/cancel_task/' + taskId, { method: 'POST' })
+                .then(() => {
+                    alert("🚫 Tâche annulée");
+                    clearInterval(interval);
+                    document.getElementById('progress-section').style.display = 'none';
+                    document.getElementById('loading-spinner').style.display = 'none';
+                });
+        };
+    }
+
+    // Affiche le loading-spinner au début de l'envoi si "annoted=no"
+    document.querySelector('form').addEventListener('submit', function(event) {
+        const annotedValue = document.querySelector('input[name="annoted"]:checked').value;
+        if (annotedValue === 'no') {
+            document.getElementById('loading-spinner').style.display = 'flex';
+            document.getElementById('progress-section').style.display = 'block';
+        }
+    });
+</script>
+
+
 {% endblock %}
