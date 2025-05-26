@@ -5,6 +5,7 @@
 {% block content %}
 <div id="loading-spinner" style="display: none;">
     <div class="loading-card">
+
         <div class="spinner"></div>
         <p>{{_('loading')}}</p>
     </div>
@@ -84,6 +85,10 @@
                         {% if leaderboard == 'yes' %}
                             <p class="mb-0">🎉 {{_('add_to_leaderboard_result')}}</p>
                         {% endif %}
+                        {% if leaderboard == 'no' %}
+                            <p class="mb-0">⚠️<strong>{{_('warning_save_results')}}</strong></p>
+                        {% endif %}
+
                     </div>
                     {% endif %}
                 </div>

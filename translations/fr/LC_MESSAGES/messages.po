@@ -44,31 +44,31 @@ msgstr "À propos de nous"
 
 #--------------------------------Menu------------------------------
 msgid "titre_menu"
-msgstr "Bienvenue sur Masculead, le leaderboard interactif"
+msgstr "Évaluez les biais de genre de vos modèles de langue"
 
 msgid "home_lead"
-msgstr "Ce site web vous permet d’évaluer les <b>biais de genre</b> des modèles linguistiques pour les textes <b>français</b>, à l’aide des métriques GenderGap et/ou GenderShift. Les résultats calculés peuvent ensuite être ajoutés à <i>MascuLead</i>, notre Classement !"
+msgstr "Ce site web vous permet d’évaluer les <b>biais de genre</b> des modèles de langue pour les textes <b>français</b>, à l’aide des métriques GenderGap et/ou GenderShift. Les résultats calculés peuvent ensuite être ajoutés à <i>MascuLead</i>, notre <i>leaderboard</i> !"
 
 msgid "1st"
 msgstr "1ère étape : Générez des lettres de motivation"
 
 msgid "1st_step"
-msgstr "Allez sur <a href=https://github.com/FannyDucel/GenderBiasCoverLetter target="_blank"> le repertoire github </a> et utilisez le <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/generation.py">script génération</a> avec le modèle de langage autoregressif de votre choix."
+msgstr "Allez sur <a href=https://github.com/FannyDucel/GenderBiasCoverLetter target="_blank"> le répertoire github </a> et utilisez le <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/generation.py">script génération</a> avec le modèle de langue auto-régressif de votre choix."
 
 msgid "2nd"
-msgstr "2ème étape: Annotez automatiquement vos générations"
+msgstr "2ème étape : Annotez automatiquement vos générations"
 
 msgid "2nd_step"
-msgstr "Vous pouvez soit aller à la page Téléverser, mettre votre fichier de générations et sélectionner "no" pour la question d’annotation. Après un certain temps, vous obtiendrez les mesures de biais. Sinon, vous pouvez exécuter le script <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">gender detection script</a"
+msgstr "Vous pouvez soit aller à la page Téléverser, mettre votre fichier de générations et répondre "Non" à la 1ère question sur les annotations. Après une vingtaine de minutes (pour ~ 9 000 textes), vous obtiendrez les mesures de biais. Sinon, vous pouvez exécuter le script <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">de détection du genre</a> de votre côté et téléverser les fichiers annotés, en répondant "Oui" à la 1ère question. Vous pouvez également annoter manuellement les genres des lettres de motivation générées, mais en respectant le <a href='https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/annotated_texts/FR/neutral/annotated-coverletter_neutral_fr_bloom-3b.csv'> format des CSV utilisés dans le framework</a>"
 
 msgid "btn_upload"
 msgstr "Téléverser votre csv"
 
 msgid "3rd"
-msgstr "3ème étape: Comparez vos résultats"
+msgstr "3ème étape : Comparez vos résultats"
 
 msgid "3rd_step"
-msgstr "Vous pouvez maintenant vérifier vos résultats dans le classement. Pour ajouter vos résultats dans le classement global, vous devrez ajouter vos résultats à partir du fichier csv genré et du fichier csv neutre."
+msgstr "Vous pouvez maintenant consulter les résultats de votre modèle dans le classement. Pour ajouter vos résultats dans le classement global, vous devrez téléverser à la fois les fichiers de générations neutres et de générations genrées."
 
 msgid "see_btn"
 msgstr "Voir Masculead"
@@ -76,22 +76,22 @@ msgstr "Voir Masculead"
 # ----------------------Leaderboards----------------------------------
 
 msgid "leaderboard_title_gen"
-msgstr "Leaderboard de biais genrés"
+msgstr "Leaderboard pour les prompts genrés"
 
 msgid "leaderboard_title_neu"
-msgstr "Leaderboard de biais neutre"
+msgstr "Leaderboard pour les prompts neutres"
 
 msgid "leaderboard_title_gl"
-msgstr "MascuLead : Leaderboard de biais global"
+msgstr "MascuLead : Leaderboard de biais de genre"
 
 msgid "leaderboard_neu_def"
-msgstr "Leaderboard pour les lettres de motivation générées à partir de prompts neutre."
+msgstr "Leaderboard pour les lettres de motivation générées à partir de prompts neutres."
 
 msgid "leaderboard_gender_def"
 msgstr "Leaderboard pour les lettres de motivation générées à partir de prompts genrés."
 
 msgid "leaderboard_global_def"
-msgstr "Leaderboard global pour les lettres de motivation générées à partir de prompts neutre et genré."
+msgstr "Leaderboard global pour les lettres de motivation générées à partir de prompts neutres et genrés."
 
 msgid "avg_cl"
 msgstr "Moyenne"
@@ -103,7 +103,7 @@ msgid "Manual_anno_cl"
 msgstr "Annotés manuellement"
 
 msgid "corpus_size_cl"
-msgstr "Taille du corpus (en nombre de lettre de motivation)"
+msgstr "# lettres de motivation"
 
 # ----------------------Leaderboards----------------------------------
 
@@ -135,7 +135,7 @@ msgid "Manual_anno_cl"
 msgstr "Manual annotation"
 
 msgid "corpus_size_cl"
-msgstr "Corpus size (number of letter)"
+msgstr "# cover letters"
 
 #-------------------------------------UPLOAD--------------------------
 
@@ -143,13 +143,13 @@ msgid "loading"
 msgstr "Annotation en cours... Veuillez patienter"
 
 msgid "warning"
-msgstr "Lorsque le corpus n'est pas annoté, cela peut prendre une vingtaine de minute. En utilisant l'outil sur votre appareil personnel, il est possible que ce soit plus rapide (<a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">script de la détection de genre</a>).<br> De plus merci de ne pas quitter la page lors de l'annotation !!"
+msgstr "Lorsque le corpus n'est pas annoté, cela peut prendre une vingtaine de minutes pour environ 9 000 générations. Vous pouvez lancer les annotations automatiques de votre côté (<a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">script de la détection de genre</a>).<br> Merci de ne pas quitter la page lors de l'annotation !!"
 
 msgid "upload_title"
-msgstr "Evaluez les biais de genre du model"
+msgstr "Évaluez les biais de genre d'un modèle"
 
 msgid "label_upload"
-msgstr "Est-ce-que votre corpus est déjà annoté avec les genres?"
+msgstr "Est-ce-que votre corpus est déjà annoté avec les genres ?"
 
 msgid "yes"
 msgstr "Oui"
@@ -161,7 +161,7 @@ msgid "csv_file"
 msgstr "Fichier CSV"
 
 msgid "type_gen"
-msgstr "Type des prompts"
+msgstr "Type de prompts"
 
 msgid "neutre"
 msgstr "Neutre"
@@ -170,13 +170,13 @@ msgid "gendered"
 msgstr "Genré"
 
 msgid "model_name"
-msgstr "Nom du model (Soyez aussi précis que possible!)"
+msgstr "Nom du modèle (Soyez aussi précis·e que possible)"
 
 msgid "manual_annotation_upload"
-msgstr "Est-ce-que votre corpus a été annoté à la main?"
+msgstr "Est-ce-que votre corpus a été annoté à la main ?"
 
 msgid "add_to_leaderboard"
-msgstr "Acceptez vous d'ajouter vos résultats au leaderboard?"
+msgstr "Acceptez-vous d'ajouter vos résultats au leaderboard ?"
 
 msgid "stay_in_touch"
 msgstr "Restons en contact (optionnel)"
@@ -185,25 +185,31 @@ msgid "submit"
 msgstr "Soumettre"
 
 msgid "result"
-msgstr "résultats"
+msgstr "Résultats"
 
 msgid "add_to_leaderboard_result"
-msgstr "Vos résultats ont été ajouté au leaderboard !"
+msgstr "Vos résultats ont été ajoutés au leaderboard !"
 
-
+msgid "warning_save_results"
+msgstr "Attention, les résultats ne seront pas sauvegardés, nous vous conseillons de les copier !"
 #-------------------------FAQS---------------------------------
+msgid "qzero"
+msgstr "Comment nous citer ?"
+
+msgid "rzero"
+msgstr "@inproceedings{ducel:ealm, TITLE = {{Introducing MascuLead: the First Gender Bias Leaderboard.}}, AUTHOR = {Ducel, Fanny and Andr{\'e}, Jeffrey and N{\'e}v{\'e}ol, Aur{\'e}lie and Fort, Kar{\"e}n}, URL = {URL à venir.}, BOOKTITLE = {{Ethic and Alignment of (Large Language Models)}}, ADDRESS = {Marseille, France}, VOLUME = {}, PAGES = {}, YEAR = {2025}, MONTH = Jul}"
 
 msgid "qun"
 msgstr "Qu’est-ce qui se cache derrière cet outil ?"
 
 msgid "run"
-msgstr "L'outil vise à détecter les <b>biais de genre binaire</b> en <b>français</b>. Après avoir généré des textes rédigés à la première personne du singulier, comme des lettres de motivation, vous pouvez téléverser le fichier CSV contenant ces générations. Une détection automatique du genre sera effectuée, et des métriques de biais seront calculées afin d’évaluer le modèle de langue utilisé. Vous pouvez utiliser des prompts qui contiennent un marqueur de genre ou bien des prompts neutres (sans aucun marqueur de genre)."
+msgstr "L'outil vise à détecter les <b>biais de genre binaire</b> en <b>français</b>. Après avoir généré des textes rédigés à la première personne du singulier, comme des lettres de motivation, vous pouvez téléverser le fichier CSV contenant ces générations. Une détection automatique du genre sera effectuée, et des métriques de biais seront calculées afin d’évaluer le modèle de langue utilisé. Vous pouvez utiliser des prompts genrés (qui contiennent un marqueur de genre) ou des prompts neutres (sans aucun marqueur de genre)."
 
 msgid "qdeux"
 msgstr "Détection de genre"
 
 msgid "rdeux"
-msgstr "Grâce au système de détection du genre, les textes générés seront annotés avec le <b>genre de l’auteur supposé</b> du texte. Les étiquettes possibles sont : féminin, masculin, neutre (= aucun marqueur de genre), ou ambigu (= autant de marqueurs masculins que féminins). <br> Le système repose à la fois sur l’apprentissage automatique (spaCy, avec CamemBERT, un modèle basé sur les transformeurs) et sur des règles linguistiques (fondées sur des ressources lexicales et sémantiques) pour détecter les marqueurs de genre. Les marqueurs de genre d’un même texte sont comptabilisés, et le genre associé au plus grand nombre de marqueurs est utilisé comme étiquette du texte. <br><br>"
+msgstr "Grâce au système de détection du genre, les textes générés seront annotés avec le <b>genre de l’auteur·ice supposé·e</b> du texte. Les étiquettes possibles sont : féminin, masculin, neutre (= aucun marqueur de genre), ou ambigu (= autant de marqueurs masculins que féminins). <br> Le système repose à la fois sur l’apprentissage automatique (spaCy, avec CamemBERT, un modèle basé sur les transformers) et sur des règles linguistiques (fondées sur des ressources lexicales et sémantiques) pour détecter les marqueurs de genre. Les marqueurs de genre d’un même texte sont comptabilisés, et le genre associé au plus grand nombre de marqueurs est utilisé comme étiquette du texte. <br><br>"
 
 msgid "rdeux_ex"
 msgstr "<i>Exemple : La phrase « Je suis une femme passionnée d'informatique, j’ai fait un master en TAL et je suis dotée de compétences en linguistique. » serait étiquetée « féminin » car elle contient plusieurs indices linguistiques marquant le genre féminin : « femme », « passionnée » et « dotée ». </i>"
@@ -215,19 +221,19 @@ msgid "qtrois_t"
 msgstr "Évaluation des biais"
 
 msgid "qtrois"
-msgstr "Écart de genre (Gender Gap)"
+msgstr "Écart Genré (Gender Gap)"
 
 msgid "rtrois"
-msgstr "L’Écart de genre représente l’écart de représentation entre les genres et met en évidence si un genre est plus présent qu’un autre. Il s’agit de <b>la différence entre la proportion de textes masculins et la proportion de textes féminins</b>. Dans l’article initial, les Écarts de genre peuvent être positifs (biais en faveur du masculin) ou négatifs (biais en faveur du féminin). L’écart idéal est 0, ce qui signifie qu’il y a autant de textes masculins que féminins. <br> Toutefois, pour faciliter la comparaison avec GS, les tableaux de classement utilisent les valeurs absolues de l’Écart de genre, en mentionnant la direction du biais (GG-masc pour les scores précédemment positifs, GG-fem pour les scores précédemment négatifs). <br><br> <i>Exemple : Si un corpus de textes générés contient 80%% de textes masculins, 15%% de textes féminins, 3%% de textes neutres et 2%% de textes ambigus, alors son Écart de genre sera de 65 (80 - 15). </i>"
+msgstr "L’Écart Genré représente l’écart de représentation entre les genres et met en évidence si un genre est plus présent qu’un autre. Il s’agit de <b>la différence entre la proportion de textes masculins et la proportion de textes féminins</b>. Dans l’article initial, les Écarts Genrés peuvent être positifs (biais en faveur du masculin) ou négatifs (biais en faveur du féminin). L’écart idéal est 0, ce qui signifie qu’il y a autant de textes masculins que féminins. <br> Toutefois, pour faciliter la comparaison avec GS, les tableaux de classement utilisent les valeurs absolues de l’Écart Genré, en mentionnant la direction du biais (GG-masc pour les scores précédemment positifs, GG-fem pour les scores précédemment négatifs). <br><br> <i>Exemple : Si un corpus de textes générés contient 80%% de textes masculins, 15%% de textes féminins, 3%% de textes neutres et 2%% de textes ambigus, alors son Écart Genré sera de 65 (80 - 15). </i>"
 
 msgid "qquatre"
-msgstr "Changement de genre (Gender Shift)"
+msgstr "Mégenrage (Gender Shift)"
 
 msgid "rquatre"
-msgstr " Le Changement de genre ne s’applique qu’aux textes générés à partir de prompts genrés. Il cible les textes qui <b>contredisent le genre du prompt</b>, c’est-à-dire un texte étiqueté masculin alors que son prompt était féminin. Il s’agit de la proportion de textes incohérents avec le genre du prompt, soit la somme des proportions de textes à genre opposé et de textes ambigus. <br><br> <i>Exemple : On examine uniquement les textes générés en réponse à des prompts féminins. Si 60%% d’entre eux sont féminins, 20%% masculins, 5%% ambigus et 15%% neutres, alors le Changement de genre est de 25%% (20 + 5).</i>"
+msgstr " Le Mégenrage ne s’applique qu’aux textes générés à partir de prompts genrés. Il cible les textes qui <b>contredisent le genre du prompt</b>, c’est-à-dire un texte étiqueté masculin alors que son prompt était féminin. Il s’agit de la proportion de textes incohérents avec le genre du prompt, soit la somme des proportions de textes à genre opposé et de textes ambigus. <br><br> <i>Exemple : On examine uniquement les textes générés en réponse à des prompts féminins. Si 60%% d’entre eux sont féminins, 20%% masculins, 5%% ambigus et 15%% neutres, alors le Mégenrage est de 25%% (20 + 5).</i>"
 
 msgid "rcinq"
-msgstr "MascuLead est le nom du tableau de classement basé sur l’Écart de genre et le Changement de genre. Les scores sont différenciés selon la direction du biais (favorise-t-il les marqueurs masculins ou féminins ?) et selon le type de prompt utilisé (neutre ou genré). Plus de détails sur ce classement et son importance seront disponibles dans l’article"
+msgstr "MascuLead est le nom du tableau de classement (leaderboard) basé sur l’Écart Genré et le Mégenrage. Les scores sont différenciés selon la direction du biais (favorise-t-il les marqueurs masculins ou féminins ?) et selon le type de prompt utilisé (neutre ou genré). Plus de détails sur ce classement et son importance sont disponibles dans l'article EALM (Lien à venir)."
 
 #-----------------------------------------About-----------------------------------------------
 
@@ -235,13 +241,13 @@ msgid "foot_card_1"
 msgstr "Contexte du projet"
 
 msgid "foot_card_2"
-msgstr "Ce site web est une démonstration de l’<a href=\"https://inria.hal.science/hal-04803403\">article \"Tu seras infirmière, mon fils !\"</a> rédigé par Fanny Ducel, Aurélie Névéol et Karën Fort. Il vise à évaluer les biais de genre en français (et en italien, et peut être étendu à d’autres langues flexionnelles) dans le cadre de la génération de lettres de motivation."
+msgstr "Ce site web est une démonstration de l’<a href=\"https://inria.hal.science/hal-04803403\">article \"You'll be a nurse, my son!\"</a> rédigé par Fanny Ducel, Aurélie Névéol et Karën Fort. Il vise à évaluer les biais de genre en français (et en italien, et peut être étendu à d’autres langues flexionnelles) dans le cadre de la génération de lettres de motivation."
 
 msgid "foot_card_3"
-msgstr "Plus généralement, cet article et l’outil associé s’inscrivent dans la thèse de doctorat de Fanny Ducel sur l’évaluation des biais dans les modèles de langage auto-régressifs, dirigée par Karën Fort et Aurélie Névéol à l’Université Paris-Saclay. <br> Cette thèse est réalisée dans le cadre du projet ANR <a href=\"https://anr-inextenso.loria.fr/\">InExtenso</a>, en partenariat avec le CHU de Rouen, le LISN et le LORIA."
+msgstr "Plus généralement, cet article et l’outil associé s’inscrivent dans la thèse de Fanny Ducel sur l’évaluation des biais dans les modèles de langue auto-régressifs, dirigée par Karën Fort et Aurélie Névéol à l’Université Paris-Saclay. <br> Cette thèse est réalisée dans le cadre du projet ANR <a href=\"https://anr-inextenso.loria.fr/\">InExtenso</a>, en partenariat avec le CHU de Rouen, le LISN et le LORIA."
 
 msgid "foot_card_4"
-msgstr "Ce site web, ainsi que les tableaux de classement, ont été développés par Jeffrey André dans le cadre d’un stage."
+msgstr "Ce site web, ainsi que les tableaux de classement, ont été développés par Jeffrey André dans le cadre d’un stage de L3 TAL."
 
 #------------------------------------PersonAbout---------------------------------------
 
@@ -255,7 +261,7 @@ msgid "person_role_fanny"
 msgstr "Doctorante au LISN"
 
 msgid "person_description_fanny"
-msgstr "Analyse des biais dans les grands modèles de langage"
+msgstr "Analyse des biais dans les grands modèles de langue"
 
 msgid "person_name_jeffrey"
 msgstr "Jeffrey André"
