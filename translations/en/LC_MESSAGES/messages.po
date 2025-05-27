@@ -108,6 +108,9 @@ msgstr "Corpus size (number of letter)"
 
 #-------------------------------------UPLOAD--------------------------
 
+msgid "loading_distraction"
+msgstr "You want to learn more about biases in a fun way? Try out "
+
 msgid "loading"
 msgstr "Annotation in progress... Please wait."
 
