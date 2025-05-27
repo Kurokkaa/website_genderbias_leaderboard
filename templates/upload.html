@@ -3,6 +3,24 @@
 {% block title %}Masculead{% endblock %}
 
 {% block content %}
+{% if result %}
+<div id="results-popup" style="display: flex;">
+    <div class="loading-card">
+        <button class="close-button" onclick="closeResultsPopup()">✖</button>
+        <h5>✅ {{_('result')}} :</h5>
+        <p>Gender Gap : <strong>{{ gender_gap }}</strong></p>
+        {% if gender_shift %}
+            <p>Gender Shift : <strong>{{ gender_shift }}%</strong></p>
+        {% endif %}
+        {% if leaderboard == 'yes' %}
+            <p class="mb-0">🎉 {{_('add_to_leaderboard_result')}}</p>
+        {% endif %}
+        {% if leaderboard == 'no' %}
+            <p class="mb-0">⚠️<strong>{{_('warning_save_results')}}</strong></p>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
 <div id="loading-spinner" style="display: none;">
     <div class="loading-card">
         <p>{{_('loading_distraction')}} <a href="https://mi.hepl.ch/projects/ia/bias.html" target="_blank"><i>The Biases of AI</i></a></p>
@@ -75,22 +93,7 @@
                             <button type="submit" class="btn-outline-primary">{{_('submit')}}</button>
                         </div>
                     </form>
-                    {% if result %}
-                        <div class="alert alert-success mt-4">
-                        <h5>✅ {{_('result')}} :</h5>
-                        <p>Gender Gap : <strong>{{ gender_gap }}</strong></p>
-                        {% if gender_shift %}
-                            <p>Gender Shift : <strong>{{ gender_shift }}%</strong></p>
-                        {% endif %}
-                        {% if leaderboard == 'yes' %}
-                            <p class="mb-0">🎉 {{_('add_to_leaderboard_result')}}</p>
-                        {% endif %}
-                        {% if leaderboard == 'no' %}
-                            <p class="mb-0">⚠️<strong>{{_('warning_save_results')}}</strong></p>
-                        {% endif %}
 
-                    </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -105,4 +108,24 @@
             }
         });
         </script>
+        <script>
+            function showResultsPopup(results) {
+                const popup = document.getElementById('results-popup');
+                const content = document.getElementById('results-content');
+                content.innerHTML = results; // Insère les résultats dans la popup
+                popup.style.display = 'flex'; // Affiche la popup
+            }
+        
+            function closeResultsPopup() {
+                const popup = document.getElementById('results-popup');
+                popup.style.display = 'none'; // Cache la popup
+            }
+        </script>
+        {% if result %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                showResultsPopup();
+            });
+        </script>
+        {% endif %}
 {% endblock %}

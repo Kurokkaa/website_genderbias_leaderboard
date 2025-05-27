@@ -1029,3 +1029,42 @@ p.lead {
         }
     }
 }
+#results-popup {
+    position: fixed; /* Position fixe pour rester au même endroit même en scrollant */
+    top: 50%; /* Centre verticalement */
+    left: 50%; /* Centre horizontalement */
+    transform: translate(-50%, -50%); /* Ajuste pour centrer parfaitement */
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    display: none; /* Masqué par défaut */
+    justify-content: center; /* Centre le contenu horizontalement */
+    align-items: center; /* Centre le contenu verticalement */
+    z-index: 1000; /* Place la popup devant tout */
+    width: 100%; /* Prend toute la largeur de l'écran */
+    height: 100%; /* Prend toute la hauteur de l'écran */
+}
+
+#results-popup .loading-card {
+    background: #fff; /* Fond blanc pour la carte */
+    padding: 20px; /* Espacement interne */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre pour un effet de profondeur */
+    text-align: center; /* Centre le texte */
+    position: relative; /* Nécessaire pour positionner la croix */
+    width: 80%; /* Largeur de la carte */
+    max-width: 500px; /* Largeur maximale */
+}
+
+#results-popup .close-button {
+    position: absolute; /* Position absolue par rapport à la carte */
+    top: 10px; /* Distance du haut */
+    right: 10px; /* Distance de la droite */
+    background: none; /* Pas de fond */
+    border: none; /* Pas de bordure */
+    font-size: 18px; /* Taille de la croix */
+    cursor: pointer; /* Curseur en forme de main */
+    color: #333; /* Couleur de la croix */
+}
+
+#results-popup .close-button:hover {
+    color: #ff0000; /* Change la couleur au survol */
+}
