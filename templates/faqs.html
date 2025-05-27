@@ -5,9 +5,49 @@
 {% block content %}
 
     <div class="home-content">
+        <div id="copy-notification" class="notification">{{_('copy_success')}}</div>
         <h1>{{ _('qzero')}}</h1>
+        <h18 class="center-text">
+          <span class="copy-link" onclick="copyToClipboard('bib1')">{{_('rzero')}}</span>
+      </h18>
+      <br>
+      <br>
+      <h18 class="center-text">
+          <span class="copy-link" onclick="copyToClipboard('bib2')">{{_('rzero2')}}</span>
+      </h18>
 
-        <xmp class="lead">{{ _('rzero')}} </xmp>
+<textarea id="bib1" style="display:none;">{% raw %}
+@inproceedings{ducel:ealm,
+  TITLE = {{Introducing MascuLead: the First Gender Bias Leaderboard.}},
+  AUTHOR = {Ducel, Fanny and Andr{\'e}, Jeffrey and N{\'e}v{\'e}ol, Aur{\'e}lie and Fort, Kar{\"e}n},
+  URL = {URL à venir.},
+  BOOKTITLE = {{Ethic and Alignment of (Large Language Models)}},
+  ADDRESS = {Marseille, France},
+  VOLUME = {},
+  PAGES = {},
+  YEAR = {2025},
+  MONTH = Jul,
+}
+{% endraw %}
+</textarea>
+
+<textarea id="bib2" style="display:none;">{% raw %}
+@inproceedings{ducel-etal-2025-women,
+  title = "{\textquotedblleft}Women do not have heart attacks!{\textquotedblright} Gender Biases in Automatically Generated Clinical Cases in {F}rench",
+  author = {Ducel, Fanny and Hiebel, Nicolas and Ferret, Olivier and Fort, Kar{\"e}n and N{\'e}v{\'e}ol, Aur{\'e}lie},
+  editor = "Chiruzzo, Luis and Ritter, Alan and Wang, Lu",
+  booktitle = "Findings of the Association for Computational Linguistics: NAACL 2025",
+  month = apr,
+  year = "2025",
+  address = "Albuquerque, New Mexico",
+  publisher = "Association for Computational Linguistics",
+  url = "https://aclanthology.org/2025.findings-naacl.398/",
+  pages = "7145--7159",
+  ISBN = "979-8-89176-195-7",
+  abstract = "Healthcare professionals are increasingly including Language Models (LMs) in clinical practice. However, LMs have been shown to exhibit and amplify stereotypical biases that can cause life-threatening harm in a medical context. This study aims to evaluate gender biases in automatically generated clinical cases in French, on ten disorders. Using seven LMs fine-tuned for clinical case generation and an automatic linguistic gender detection tool, we measure the associations between disorders and gender. We unveil that LMs over-generate cases describing male patients, creating synthetic corpora that are not consistent with documented prevalence for these disorders. For instance, when prompts do not specify a gender, LMs generate eight times more clinical cases describing male (vs. female patients) for heart attack. We discuss the ideal synthetic clinical case corpus and establish that explicitly mentioning demographic information in generation instructions appears to be the fairest strategy. In conclusion, we argue that the presence of gender biases in synthetic text raises concerns about LM-induced harm, especially for women and transgender people."
+}
+{% endraw %}
+</textarea>
 
         <h1>{{ _('qun')}}</h1>
 
@@ -37,4 +77,30 @@
         <p class="lead">{{ _('rcinq')}} (lien à venir).</p>
 
 </div>
+<script>
+    function copyToClipboard(id) {
+      const textArea = document.getElementById(id);
+      textArea.style.display = 'block';
+      textArea.select();
+      document.execCommand('copy');
+      textArea.style.display = 'none';
+    }
+    </script>
+    <script>
+        function copyToClipboard(id) {
+          const textArea = document.getElementById(id);
+          textArea.style.display = 'block';
+          textArea.select();
+          document.execCommand('copy');
+          textArea.style.display = 'none';
+        
+          const notif = document.getElementById('copy-notification');
+          notif.classList.add('show');
+        
+          setTimeout(() => {
+            notif.classList.remove('show');
+          }, 2000);
+        }
+        </script>
+        
 {% endblock %}

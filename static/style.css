@@ -21,7 +21,47 @@ body {
     max-width: 100px;
     ;
 }
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1000;
+  }
+  .notification.show {
+    opacity: 1;
+  }
+.copy-link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 10px;
+  display: inline-block;
+  margin-left: 1%;
+  margin-left : center;
+}
+.center-text {
+    text-align: center; 
+    display: block;     
+    margin: 10px 0;    
+}
 
+.copy-link {
+    cursor: pointer;   
+    color: #007BFF;     
+}
+
+.img-menu {
+    width: 500px;
+    height: auto;
+    margin-left: 8%;
+}
 .sidebar ul {
     list-style: none;
     padding: 0;

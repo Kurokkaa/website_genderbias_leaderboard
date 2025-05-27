@@ -60,7 +60,7 @@ msgid "2nd"
 msgstr "2nd Step: Automatically annotate the generations"
 
 msgid "2nd_step"
-msgstr "You can either go to the Upload page, put your generations file and select "no" for the annotation question. After some time, you will get the bias metrics. Otherwise, you can run the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">gender detection script</a> yourself, and upload the annotated generation file, selecting "yes" to the annotation question to get the metrics. You can also manually annotate the generations, but respecting <a href='https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/annotated_texts/FR/neutral/annotated-coverletter_neutral_fr_bloom-3b.csv'>the CSV format</a> that's used in the framework."
+msgstr "<ul> <li>You can either go to the Upload page, put your generations file and select "no" for the annotation question. After some time, you will get the bias metrics. <li>Otherwise, you can run the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">gender detection script</a> yourself, and upload the annotated generation file, selecting "yes" to the annotation question to get the metrics. You can also manually annotate the generations, but respecting <a href='https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/annotated_texts/FR/neutral/annotated-coverletter_neutral_fr_bloom-3b.csv'>the CSV format</a> that's used in the framework."</ul>
 
 msgid "btn_upload"
 msgstr "Upload your csv"
@@ -165,12 +165,18 @@ msgstr "Your results have been added to the leaderboard!"
 msgid "warning_save_results"
 msgstr "Careful, the results won't be saved anywhere so we advise you to paste them somewhere!"
 #-------------------------FAQS---------------------------------
+
+msgid "copy_success"
+msgstr "Citation copied successfully!"
+
 msgid "qzero"
 msgstr "How to cite?"
 
 msgid "rzero"
-msgstr "@inproceedings{ducel:ealm, TITLE = {{Introducing MascuLead: the First Gender Bias Leaderboard.}}, AUTHOR = {Ducel, Fanny and Andr{\'e}, Jeffrey and N{\'e}v{\'e}ol, Aur{\'e}lie and Fort, Kar{\"e}n}, URL = {URL à venir.}, BOOKTITLE = {{Ethic and Alignment of (Large Language Models)}}, ADDRESS = {Marseille, France}, VOLUME = {}, PAGES = {}, YEAR = {2025}, MONTH = Jul}"
+msgstr "To cite the Masculead article, click here"
 
+msgid "rzero2"
+msgstr "To cite the article : <em>Women do not have heart attacks!</em>, click here"
 
 msgid "qun"
 msgstr "What's behind this framework?"

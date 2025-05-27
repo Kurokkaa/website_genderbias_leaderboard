@@ -199,8 +199,14 @@ msgstr "Attention, les résultats ne seront pas sauvegardés, nous vous conseill
 msgid "qzero"
 msgstr "Comment nous citer ?"
 
+msgid "copy_success"
+msgstr "Citation copiée avec succès!"
+
 msgid "rzero"
-msgstr "@inproceedings{ducel:ealm, TITLE = {{Introducing MascuLead: the First Gender Bias Leaderboard.}}, AUTHOR = {Ducel, Fanny and Andr{\'e}, Jeffrey and N{\'e}v{\'e}ol, Aur{\'e}lie and Fort, Kar{\"e}n}, URL = {URL à venir.}, BOOKTITLE = {{Ethic and Alignment of (Large Language Models)}}, ADDRESS = {Marseille, France}, VOLUME = {}, PAGES = {}, YEAR = {2025}, MONTH = Jul}"
+msgstr "Pour citer l'article du leaderboard Masculead, cliquez ici !"
+
+msgid "rzero2"
+msgstr "Pour citer l'article <em>Women do not have heart attacks!</em>, cliquez ici !"
 
 msgid "qun"
 msgstr "Qu’est-ce qui se cache derrière cet outil ?"
