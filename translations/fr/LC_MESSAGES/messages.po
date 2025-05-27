@@ -59,7 +59,7 @@ msgid "2nd"
 msgstr "2ème étape : Annotez automatiquement vos générations"
 
 msgid "2nd_step"
-msgstr "Vous pouvez soit aller à la page Téléverser, mettre votre fichier de générations et répondre "Non" à la 1ère question sur les annotations. Après une vingtaine de minutes (pour ~ 9 000 textes), vous obtiendrez les mesures de biais. Sinon, vous pouvez exécuter le script <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">de détection du genre</a> de votre côté et téléverser les fichiers annotés, en répondant "Oui" à la 1ère question. Vous pouvez également annoter manuellement les genres des lettres de motivation générées, mais en respectant le <a href='https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/annotated_texts/FR/neutral/annotated-coverletter_neutral_fr_bloom-3b.csv'> format des CSV utilisés dans le framework</a>"
+msgstr "<ul> <li>Vous pouvez soit aller à la page Téléverser, mettre votre fichier de générations et répondre "Non" à la 1ère question sur les annotations. Après une vingtaine de minutes (pour ~ 9 000 textes), vous obtiendrez les mesures de biais. <li>Sinon, vous pouvez exécuter le script <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">de détection du genre</a> de votre côté et téléverser les fichiers annotés, en répondant "Oui" à la 1ère question. Vous pouvez également annoter manuellement les genres des lettres de motivation générées, mais en respectant le <a href='https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/annotated_texts/FR/neutral/annotated-coverletter_neutral_fr_bloom-3b.csv'> format des CSV utilisés dans le framework</a></ul>"
 
 msgid "btn_upload"
 msgstr "Téléverser votre csv"
