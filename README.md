@@ -6,7 +6,8 @@ Ce site web permet d’utiliser l’outil développé par **Fanny Ducel** dans l
 
 ## Présentation
 
-Cette application web fournit une interface pour analyser des lettres de motivation en détectant des biais de genre, grâce à l’outil développé par Fanny Ducel.
+Cette application web fournit une interface pour analyser des lettres de motivation en détectant des biais de genre, grâce à l’outil développé par Fanny Ducel. 
+Il implement le leaderboard de biais de genre masculead, faisant lieu à un article {url à venir}.
 
 ---
 
