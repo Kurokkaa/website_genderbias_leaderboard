@@ -19,7 +19,7 @@ Il implement le leaderboard de biais de genre masculead, faisant lieu à un arti
 
 ### Lancement de l’application
 
-Pour construire et lancer le site avec Docker Compose (recommandé) :
+Pour construire et lancer le site avec Docker Compose (pour le premier lancement) :
 
 ```bash
 docker compose up --build
@@ -29,6 +29,11 @@ Pour lancer simplement le site (avec redémarrage automatique en cas de crash) :
 
 ```bash
 docker compose up
+```
+Pour le lancer en arrière plan (permet de fermer le terminal et de garder l'application web ouverte :
+
+```bash
+docker compose up -d
 ```
 
 Si vous préférez lancer sans Docker, vous pouvez utiliser :
@@ -67,14 +72,6 @@ Pour supprimer une entrée dans la base, utilisez le script removedb.py avec les
 
 ```bash
 python removedb.py [modelname] [table]
-```
-
-Utilisation du Docker Compose
-
-Pour mettre à jour votre configuration Docker Compose en arrière-plan :
-
-```bash
-docker compose up -d
 ```
 
 Pour arrêter le service :
