@@ -8,17 +8,23 @@ il faut avoir installer docker puis:
 
 "docker compose up --build" 
 
-# Executer pour lancer le site web :
-"python app.py" ou "flask run"
 
-ou alors via le docker
-
-"docker compose up" (conseillé)
-
-# Pour mettre à jour les traductions ou ajouter une nouvelle langue ou de nouveaux textes :
+# Pour mettre à jour les traductions ou ajouter une nouvelle langue ou de nouveaux textes (lancer à la mise en place du site):
 Changer les fichiers .mo dans translations (les variables contenues dans ces fichiers sont appelées dans les fichiers HTML du dossier templates).
 
 pybabel compile -d translations
+
+# Pour initialiser la base de donnée par défaut il faut enlever le commentaire dans le main du fichier app.py et lancer le démarrage, pensez à recommenter pour garder les nouvelles données dans la db
+
+# Executer pour lancer le site web :
+
+alors via le docker permettant le redémarrage automatique lors des crashs
+
+"docker compose up" (conseillé)
+
+sinon si il y a des problèmes, il est aussi possible d'éxecuter :
+
+"python app.py" ou "flask run"
 
 # Pour supprimer une entrée dans le site web :
 
