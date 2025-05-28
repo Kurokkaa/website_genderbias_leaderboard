@@ -1,38 +1,87 @@
-## Contexte 
+# Gender Bias Cover Letter Web App
 
-Ce site web sert à utiliser l'outil créé par Fanny Ducel, dans le cadre d'un stage. (https://github.com/FannyDucel/GenderBiasCoverLetter)
+Ce site web permet d’utiliser l’outil développé par **Fanny Ducel** dans le cadre de son stage, disponible sur [GitHub](https://github.com/FannyDucel/GenderBiasCoverLetter).
 
-# Mise en place 
+---
 
-il faut avoir installer docker puis:
+## Présentation
 
-"docker compose up --build" 
+Cette application web fournit une interface pour analyser des lettres de motivation en détectant des biais de genre, grâce à l’outil développé par Fanny Ducel.
 
+---
 
-# Pour mettre à jour les traductions ou ajouter une nouvelle langue ou de nouveaux textes (lancer à la mise en place du site):
-Changer les fichiers .mo dans translations (les variables contenues dans ces fichiers sont appelées dans les fichiers HTML du dossier templates).
+## Installation et lancement
 
+### Prérequis
+
+- **Docker** et **Docker Compose** doivent être installés sur votre machine.
+
+### Lancement de l’application
+
+Pour construire et lancer le site avec Docker Compose (recommandé) :
+
+```bash
+docker compose up --build
+```
+
+Pour lancer simplement le site (avec redémarrage automatique en cas de crash) :
+
+```bash
+docker compose up
+```
+
+Si vous préférez lancer sans Docker, vous pouvez utiliser :
+
+```bash
+python app.py
+```
+
+```bash
+flask run
+```
+
+### Mise à jour des traductions
+
+Les traductions sont stockées dans le dossier translations sous forme de fichiers .mo. Ces fichiers contiennent les variables utilisées dans les templates HTML.
+
+Pour compiler ou mettre à jour les fichiers de traduction .mo, exécutez :
+
+```bash
 pybabel compile -d translations
+```
 
-# Pour initialiser la base de donnée par défaut il faut enlever le commentaire dans le main du fichier app.py et lancer le démarrage, pensez à recommenter pour garder les nouvelles données dans la db
+### Initialisation de la base de données
 
-# Executer pour lancer le site web :
+Pour initialiser la base de données avec les données par défaut, décommentez "initialize_database()" dans le fichier app.py (dans la fonction main), puis lancez l’application.
 
-alors via le docker permettant le redémarrage automatique lors des crashs
+Pensez à recommenter cette partie après initialisation afin de ne pas écraser les nouvelles données lors des prochains démarrages.
 
-"docker compose up" (conseillé)
+## Suppression d’entrées dans la base
 
-sinon si il y a des problèmes, il est aussi possible d'éxecuter :
-
-"python app.py" ou "flask run"
-
-# Pour supprimer une entrée dans le site web :
+Pour supprimer une entrée dans la base, utilisez le script removedb.py avec les arguments suivants :
 
 [modelname] : nom du modèle
+
 [table] : neutral ou gendered
 
-"python removedb.py [modelname] [table]"
+```bash
+python removedb.py [modelname] [table]
+```
 
+Utilisation du Docker Compose
 
-# pour mettre à jour le docker-compose.yml
-"docker compose up -d"
+Pour mettre à jour votre configuration Docker Compose en arrière-plan :
+
+```bash
+docker compose up -d
+```
+
+Pour arrêter le service :
+
+```bash
+docker compose down
+```
+
+## Licence
+
+Ce projet est sous licence [à completer]
