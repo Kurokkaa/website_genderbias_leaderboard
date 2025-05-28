@@ -1,6 +1,6 @@
 # Gender Bias Cover Letter Web App
 
-Ce site web permet d’utiliser l’outil développé par **Fanny Ducel** dans le cadre de son stage, disponible sur [GitHub](https://github.com/FannyDucel/GenderBiasCoverLetter).
+Ce site web permet d’utiliser l’outil développé par **Fanny Ducel** dans le cadre d'un stage, disponible sur [GitHub](https://github.com/FannyDucel/GenderBiasCoverLetter).
 
 ---
 
