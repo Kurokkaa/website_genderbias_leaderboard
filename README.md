@@ -82,4 +82,4 @@ docker compose down
 
 ## Licence
 
-Ce projet est sous licence [à completer]
+Ce projet est sous licence CeCILL
