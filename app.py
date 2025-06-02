@@ -12,205 +12,211 @@ from model import db, LeaderboardEntry, LeaderboardEntry_neutral, LeaderboardEnt
 from flask_babel import Babel, get_locale
 import datetime
 
-# Flask initialization
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'uploads'
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///leaderboard.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+def create_app():
+    # Flask initialization
+    app = Flask(__name__)
+    app.config['UPLOAD_FOLDER'] = 'uploads'
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-db.init_app(app)
-#----------------------------------------Flask-babel----------------------------------------#
-babel = Babel()
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///leaderboard.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-LANGUAGES = ['en', 'fr']
+    db.init_app(app)
+    #----------------------------------------Flask-babel----------------------------------------#
+    babel = Babel()
 
-app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'translations'
+    LANGUAGES = ['en', 'fr']
 
-
-@app.route('/set_language/<lang>')
-def set_language(lang):
-    if lang not in LANGUAGES:
-        lang = 'en'
-    resp = make_response(redirect(request.referrer or '/'))
-    resp.set_cookie('lang', lang, max_age=30*24*60*60) 
-    return resp
-
-def get_locale():
-    lang = request.cookies.get('lang')
-    if lang in LANGUAGES:
-        return lang
-    return request.accept_languages.best_match(LANGUAGES)
-
-def select_locale():
-    return request.cookies.get('lang') or request.accept_languages.best_match(LANGUAGES)
-
-babel.init_app(app, locale_selector=select_locale)
-
-@app.context_processor
-def inject_get_locale():
-    return dict(get_locale=get_locale)
+    app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+    app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'translations'
 
 
-#----------------------------------------Pages----------------------------------------#
-@app.route('/')
-def accueil():
-    return render_template('home.html') 
+    @app.route('/set_language/<lang>')
+    def set_language(lang):
+        if lang not in LANGUAGES:
+            lang = 'en'
+        resp = make_response(redirect(request.referrer or '/'))
+        resp.set_cookie('lang', lang, max_age=30*24*60*60) 
+        return resp
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
-    if request.method == 'POST':
-        file = request.files['csv_file']
-        manual_annotated_select = request.form['manual_annotation']
-        data_type_select = request.form['data_type']
-        model_name_select = request.form['model_name']
-        leaderboard_select = request.form['leaderboard']
-        annoted_select = request.form['annoted']
-        email = request.form['email']
+    def get_locale():
+        lang = request.cookies.get('lang')
+        if lang in LANGUAGES:
+            return lang
+        return request.accept_languages.best_match(LANGUAGES)
 
-        manual_annotated_select = True if manual_annotated_select == 'true' else False
+    def select_locale():
+        return request.cookies.get('lang') or request.accept_languages.best_match(LANGUAGES)
 
-        if email != "":
-            email_sav(model_name_select, email)
-        if annoted_select == "yes":
-            df = pd.read_csv(file)
-            df["modele"] = model_name_select
-            df["genre"] = data_type_select
-        elif annoted_select == "no":
-            apply_gender_detection(file, model_name_select, data_type_select)
-            df = pd.read_csv(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
-            df["modele"] = model_name_select
-            df["genre"] = data_type_select
+    babel.init_app(app, locale_selector=select_locale)
+
+    @app.context_processor
+    def inject_get_locale():
+        return dict(get_locale=get_locale)
+
+
+    #----------------------------------------Pages----------------------------------------#
+    @app.route('/')
+    def accueil():
+        return render_template('home.html') 
+
+    @app.route('/upload', methods=['GET', 'POST'])
+    def upload():
+        if request.method == 'POST':
+            file = request.files['csv_file']
+            manual_annotated_select = request.form['manual_annotation']
+            data_type_select = request.form['data_type']
+            model_name_select = request.form['model_name']
+            leaderboard_select = request.form['leaderboard']
+            annoted_select = request.form['annoted']
+            email = request.form['email']
+
+            manual_annotated_select = True if manual_annotated_select == 'true' else False
+
+            if email != "":
+                email_sav(model_name_select, email)
+            if annoted_select == "yes":
+                df = pd.read_csv(file)
+                df["modele"] = model_name_select
+                df["genre"] = data_type_select
+            elif annoted_select == "no":
+                apply_gender_detection(file, model_name_select, data_type_select)
+                df = pd.read_csv(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
+                df["modele"] = model_name_select
+                df["genre"] = data_type_select
+                
+            csv_rows_count = len(df) -1
+
+            if data_type_select == "gendered":
+                #setup data
+                df = df[df["Identified_gender"] != "incomplet/pas de P1"]
+                df.replace({"Ambigu": "Ambiguous","Fem": "Feminine","Masc": "Masculine","Neutre": "Neutral"}, inplace=True)
+                
+                gender_gap = calculate_gender_gap(df)
+                gender_gap = round(gender_gap, 2)
+                gender_shift = calculate_gender_shift(df)
+                gender_shift = round(gender_shift, 2)
+                if leaderboard_select == "yes":
+                    add_to_sql(model_name_select, data_type_select, gender_gap, manual_annotated_select, csv_rows_count, gender_shift )
+                if annoted_select == "no":
+                    try:
+                        os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
+                    except FileNotFoundError:
+                        pass
+                return render_template('upload.html', result=True, gender_gap=gender_gap, gender_shift=gender_shift, leaderboard=leaderboard_select)
             
-        csv_rows_count = len(df) -1
+            elif data_type_select == "neutral":
+                #setup data
+                df = df[df["Identified_gender"] != "incomplet/pas de P1"]
+                df = df[~df["theme"].isin(['electricité, électronique','électricite, électronique','études et développement informatique','études géologiques'])]
+                df.replace({"Ambigu": "Ambiguous","Fem": "Feminine","Masc": "Masculine","Neutre": "Neutral"}, inplace=True)
 
-        if data_type_select == "gendered":
-            #setup data
-            df = df[df["Identified_gender"] != "incomplet/pas de P1"]
-            df.replace({"Ambigu": "Ambiguous","Fem": "Feminine","Masc": "Masculine","Neutre": "Neutral"}, inplace=True)
-            
-            gender_gap = calculate_gender_gap(df)
-            gender_gap = round(gender_gap, 2)
-            gender_shift = calculate_gender_shift(df)
-            gender_shift = round(gender_shift, 2)
-            if leaderboard_select == "yes":
-                add_to_sql(model_name_select, data_type_select, gender_gap, manual_annotated_select, csv_rows_count, gender_shift )
-            if annoted_select == "no":
-                try:
-                    os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
-                except FileNotFoundError:
-                    pass
-            return render_template('upload.html', result=True, gender_gap=gender_gap, gender_shift=gender_shift, leaderboard=leaderboard_select)
-        
-        elif data_type_select == "neutral":
-            #setup data
-            df = df[df["Identified_gender"] != "incomplet/pas de P1"]
-            df = df[~df["theme"].isin(['electricité, électronique','électricite, électronique','études et développement informatique','études géologiques'])]
-            df.replace({"Ambigu": "Ambiguous","Fem": "Feminine","Masc": "Masculine","Neutre": "Neutral"}, inplace=True)
+                gender_gap = calculate_gender_gap(df)
+                gender_gap = round(gender_gap, 2)
+                if leaderboard_select == "yes":
+                    add_to_sql(model_name_select, data_type_select, gender_gap, manual_annotated_select, csv_rows_count)
+                if annoted_select == "no":
+                    try:
+                        os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
+                    except FileNotFoundError:
+                        pass
+                return render_template('upload.html', result=True, gender_gap=gender_gap, leaderboard=leaderboard_select)
 
-            gender_gap = calculate_gender_gap(df)
-            gender_gap = round(gender_gap, 2)
-            if leaderboard_select == "yes":
-                add_to_sql(model_name_select, data_type_select, gender_gap, manual_annotated_select, csv_rows_count)
-            if annoted_select == "no":
-                try:
-                    os.remove(f"./uploads/annoted_{model_name_select}_{data_type_select}.csv")
-                except FileNotFoundError:
-                    pass
-            return render_template('upload.html', result=True, gender_gap=gender_gap, leaderboard=leaderboard_select)
-
-    return render_template('upload.html')
+        return render_template('upload.html')
 
 
-@app.route('/leaderboard_global')
-def leaderboard_global():
-    entries = LeaderboardEntry.query.order_by(LeaderboardEntry.average.asc()).all()
-    return render_template('leaderboard_global.html', leaderboard=entries)
+    @app.route('/leaderboard_global')
+    def leaderboard_global():
+        entries = LeaderboardEntry.query.order_by(LeaderboardEntry.average.asc()).all()
+        return render_template('leaderboard_global.html', leaderboard=entries)
 
 
 
-@app.route('/leaderboard_neutral')
-def leaderboard_neutral():
-    gendergap_value = func.coalesce(LeaderboardEntry_neutral.gg_masc_neutral, LeaderboardEntry_neutral.gg_fem_neutral)
+    @app.route('/leaderboard_neutral')
+    def leaderboard_neutral():
+        gendergap_value = func.coalesce(LeaderboardEntry_neutral.gg_masc_neutral, LeaderboardEntry_neutral.gg_fem_neutral)
 
-    entries = LeaderboardEntry_neutral.query \
-        .filter((LeaderboardEntry_neutral.gg_masc_neutral != None) | (LeaderboardEntry_neutral.gg_fem_neutral != None)) \
-        .order_by(func.abs(gendergap_value)) \
-        .all()
+        entries = LeaderboardEntry_neutral.query \
+            .filter((LeaderboardEntry_neutral.gg_masc_neutral != None) | (LeaderboardEntry_neutral.gg_fem_neutral != None)) \
+            .order_by(func.abs(gendergap_value)) \
+            .all()
 
-    return render_template('leaderboard_neutral.html', leaderboard=entries)
-
-
-@app.route('/leaderboard_gendered')
-def leaderboard_gendered():
-    gendergap_value = func.coalesce(LeaderboardEntry_gendered.gg_masc_gendered, LeaderboardEntry_gendered.gg_fem_gendered)
-
-    entries = LeaderboardEntry_gendered.query \
-        .filter((LeaderboardEntry_gendered.gg_masc_gendered != None) | (LeaderboardEntry_gendered.gg_fem_gendered != None)) \
-        .order_by(func.abs(gendergap_value)) \
-        .all()
-
-    return render_template('leaderboard_gendered.html', leaderboard=entries)
-
-@app.route('/about')
-def about():
-    team = [
-        {
-            "id": "fanny",
-            "name": "Fanny Ducel",
-            "role": "PhD Student at LISN",
-            "description": "Bias analysis in Large Language Models",
-            "link": "https://fannyducel.github.io/",
-            "image": "/static/img/fanny.jpg"
-        },
-        {
-            "id": "jeffrey",
-            "name": "Jeffrey André",
-            "role": "NLP Student",
-            "description": "L3 Student at Univ. de Lorraine",
-            "link": "https://github.com/Kurokkaa",
-            "image": "/static/img/jeffrey.jpg"
-        },
-        {
-            "id": "karen",
-            "name": "Karën Fort",
-            "role": "Linguistic resources for NLP and professor at Univ. de Lorraine",
-            "description": "Language resources and ethics for NLP",
-            "link": "https://members.loria.fr/KFort/",
-            "image": "/static/img/karen.png"
-        },
-        {
-            "id": "aurelie",
-            "name": "Aurélie Névéol",
-            "role": "CNRS Researcher at LISN (formerly, LIMSI)",
-            "description": "Clinical and biomedical Natural Language Processing",
-            "link": "https://perso.limsi.fr/neveol/",
-            "image": "/static/img/aurelie.jpg"
-        }
-    ]
-    return render_template('about.html', team=team)
-
-@app.route('/faqs')
-def faq():
-    return render_template('faqs.html')
+        return render_template('leaderboard_neutral.html', leaderboard=entries)
 
 
-@app.route('/get_models/<leaderboard>', methods=['GET'])
-def get_models(leaderboard):
-    # Vérifier si le leaderboard est 'neutral' ou 'gendered' et retourner les modèles correspondants
-    if leaderboard == "neutral":
-        models = LeaderboardEntry_neutral.query.all()
-    elif leaderboard == "gendered":
-        models = LeaderboardEntry_gendered.query.all()
-    else:
-        return jsonify({"models": []})
+    @app.route('/leaderboard_gendered')
+    def leaderboard_gendered():
+        gendergap_value = func.coalesce(LeaderboardEntry_gendered.gg_masc_gendered, LeaderboardEntry_gendered.gg_fem_gendered)
 
-    # Extraire les noms des modèles
-    model_names = [entry.model for entry in models]
-    return jsonify({"models": model_names})
+        entries = LeaderboardEntry_gendered.query \
+            .filter((LeaderboardEntry_gendered.gg_masc_gendered != None) | (LeaderboardEntry_gendered.gg_fem_gendered != None)) \
+            .order_by(func.abs(gendergap_value)) \
+            .all()
 
+        return render_template('leaderboard_gendered.html', leaderboard=entries)
+
+    @app.route('/about')
+    def about():
+        team = [
+            {
+                "id": "fanny",
+                "name": "Fanny Ducel",
+                "role": "PhD Student at LISN",
+                "description": "Bias analysis in Large Language Models",
+                "link": "https://fannyducel.github.io/",
+                "image": "/static/img/fanny.jpg"
+            },
+            {
+                "id": "jeffrey",
+                "name": "Jeffrey André",
+                "role": "NLP Student",
+                "description": "L3 Student at Univ. de Lorraine",
+                "link": "https://github.com/Kurokkaa",
+                "image": "/static/img/jeffrey.jpg"
+            },
+            {
+                "id": "karen",
+                "name": "Karën Fort",
+                "role": "Linguistic resources for NLP and professor at Univ. de Lorraine",
+                "description": "Language resources and ethics for NLP",
+                "link": "https://members.loria.fr/KFort/",
+                "image": "/static/img/karen.png"
+            },
+            {
+                "id": "aurelie",
+                "name": "Aurélie Névéol",
+                "role": "CNRS Researcher at LISN (formerly, LIMSI)",
+                "description": "Clinical and biomedical Natural Language Processing",
+                "link": "https://perso.limsi.fr/neveol/",
+                "image": "/static/img/aurelie.jpg"
+            }
+        ]
+        return render_template('about.html', team=team)
+
+    @app.route('/faqs')
+    def faq():
+        return render_template('faqs.html')
+
+
+    @app.route('/get_models/<leaderboard>', methods=['GET'])
+    def get_models(leaderboard):
+        # Vérifier si le leaderboard est 'neutral' ou 'gendered' et retourner les modèles correspondants
+        if leaderboard == "neutral":
+            models = LeaderboardEntry_neutral.query.all()
+        elif leaderboard == "gendered":
+            models = LeaderboardEntry_gendered.query.all()
+        else:
+            return jsonify({"models": []})
+
+        # Extraire les noms des modèles
+        model_names = [entry.model for entry in models]
+        return jsonify({"models": model_names})
+
+    with app.app_context():
+        db.create_all()
+
+    return app
 #----------------------------------------Functions----------------------------------------#
 def email_sav(model_name, email, filepath="save/email.txt"):
     with open(filepath, "a", encoding="utf-8") as f:
@@ -588,13 +594,4 @@ def apply_gender_detection(csv_path,modele_name, setting):
     df_lm["Detailed_markers"] = total_markers
 
     df_lm.to_csv(f"./uploads/annoted_{modele_name}_{setting}.csv", index=False)
-
-#----------------------------------------Init----------------------------------------#
-with app.app_context():
-    db.create_all()
-
-if __name__ == '__main__':
-    #Décommenter pour réinisialiser la base de données aux tableau par défaut
-    #initialize_database()
-    app.run(host="0.0.0.0", port=5000, debug=True)
 

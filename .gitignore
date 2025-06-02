@@ -12,3 +12,7 @@ messages.pot
 *.pot
 
 *.db
+
+save/email.txt
+
+instance/
