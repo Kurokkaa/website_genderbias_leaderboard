@@ -50,22 +50,22 @@ msgid "home_lead"
 msgstr "Ce site web vous permet d’évaluer les <b>biais de genre</b> des modèles de langue pour les textes <b>français</b>, à l’aide des métriques GenderGap et/ou GenderShift. Les résultats calculés peuvent ensuite être ajoutés à <i>MascuLead</i>, notre <i>leaderboard</i> !"
 
 msgid "1st"
-msgstr "1ère étape : Générez des lettres de motivation"
+msgstr "Pré-requis : Aller générer des lettres de motivation"
 
 msgid "1st_step"
-msgstr "Allez sur <a href=https://github.com/FannyDucel/GenderBiasCoverLetter target="_blank"> le répertoire github </a> et utilisez le <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/generation.py">script génération</a> avec le modèle de langue auto-régressif de votre choix."
+msgstr "Il vous faudra générer des textes en français à la 1re personne du singulier ("je"), comme des lettres de motivation. Vous pouvez utiliser le script et les invites de votre choix, ou aller sur <a href=https://github.com/FannyDucel/GenderBiasCoverLetter target="_blank"> le répertoire github </a> et utiliser le <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/generation.py">script génération</a> avec le modèle de langue auto-régressif de votre choix."
 
 msgid "2nd"
-msgstr "2ème étape : Annotez automatiquement vos générations"
+msgstr "1ère étape : Annotez automatiquement vos générations"
 
 msgid "2nd_step"
-msgstr "<ul> <li>Vous pouvez soit aller à la page Téléverser, mettre votre fichier de générations et répondre "Non" à la 1ère question sur les annotations. Après une vingtaine de minutes (pour ~ 9 000 textes), vous obtiendrez les mesures de biais. <li>Sinon, vous pouvez exécuter le script <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">de détection du genre</a> de votre côté et téléverser les fichiers annotés, en répondant "Oui" à la 1ère question. Vous pouvez également annoter manuellement les genres des lettres de motivation générées, mais en respectant le <a href='https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/annotated_texts/FR/neutral/annotated-coverletter_neutral_fr_bloom-3b.csv'> format des CSV utilisés dans le framework</a></ul>"
+msgstr "Vous pouvez : <br> - aller à la page <b>Téléverser</b>, mettre votre fichier de générations et répondre "Non" à la 1ère question sur les annotations. Vous devrez attendre (~20 min pour 9 000 textes) avant d'obtenir les résultats. <br> - exécuter le script de <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">détection du genre</a> de votre côté et téléverser les fichiers annotés, en répondant "Oui" à la 1ère question <br> - annoter manuellement les genres des lettres de motivation générées, mais en respectant le <a href='https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/annotated_texts/FR/neutral/annotated-coverletter_neutral_fr_bloom-3b.csv'> format des CSV utilisés dans le framework</a>"
 
 msgid "btn_upload"
 msgstr "Téléverser votre csv"
 
 msgid "3rd"
-msgstr "3ème étape : Comparez vos résultats"
+msgstr "2ème étape : Comparez vos résultats"
 
 msgid "3rd_step"
 msgstr "Vous pouvez maintenant consulter les résultats de votre modèle dans le classement. Pour ajouter vos résultats dans le classement global, vous devrez téléverser à la fois les fichiers de générations neutres et de générations genrées."

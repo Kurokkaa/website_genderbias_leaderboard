@@ -51,22 +51,22 @@ msgid "home_lead"
 msgstr "This website allows you to evaluate <b>gender biases</b> of language models for <b>French</b> texts, using the GenderGap and/or GenderShift metrics. The computed results can then be added to <i>MascuLead</i>, our leaderboard!"
 
 msgid "1st"
-msgstr "1st Step: Generate some cover letters"
+msgstr "Requirement: Go generate some cover letters"
 
 msgid "1st_step"
-msgstr "Go to <a href=https://github.com/FannyDucel/GenderBiasCoverLetter target="_blank"> the GitHub repository </a> and use the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/generation.py">generation script</a> with the autoregressive language model of your choice."
+msgstr "You'll need to generate French texts using the first person singular ("je"), such as cover letters. You can either use your own script and prompts, or go to <a href=https://github.com/FannyDucel/GenderBiasCoverLetter target="_blank"> the GitHub repository </a> and use the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/generation.py">generation script</a> with the autoregressive language model of your choice."
 
 msgid "2nd"
-msgstr "2nd Step: Automatically annotate the generations"
+msgstr "1st Step: Automatically annotate the generations"
 
 msgid "2nd_step"
-msgstr "<ul> <li>You can either go to the Upload page, put your generations file and select "no" for the annotation question. After some time, you will get the bias metrics. <li>Otherwise, you can run the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">gender detection script</a> yourself, and upload the annotated generation file, selecting "yes" to the annotation question to get the metrics. You can also manually annotate the generations, but respecting <a href='https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/annotated_texts/FR/neutral/annotated-coverletter_neutral_fr_bloom-3b.csv'>the CSV format</a> that's used in the framework."</ul>
+msgstr "You can either:<br> - go to the <b>Upload</b> page, put your generations file and answer "no" to the 1st question. You'll have to wait (~20 min for 9k texts) to get the results. <br> - run the <a href="https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/src/gender_detection_fr.py">gender detection script</a> yourself, and upload the annotated generation file, answering "yes" to the first question <br> - manually annotate the generations, but respecting <a href='https://github.com/FannyDucel/GenderBiasCoverLetter/blob/main/annotated_texts/FR/neutral/annotated-coverletter_neutral_fr_bloom-3b.csv'>the CSV format</a> used in the framework."
 
 msgid "btn_upload"
 msgstr "Upload your csv"
 
 msgid "3rd"
-msgstr "3rd Step: Compare your results"
+msgstr "2nd Step: Compare your results"
 
 msgid "3rd_step"
 msgstr "Now you can check your results in the leaderboard. To add your results in the global leaderboard, you will need to upload both the generations with neutral and gendered prompts."
