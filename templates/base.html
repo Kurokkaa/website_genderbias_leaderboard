@@ -11,22 +11,22 @@
     <header class="navbar">
         <div class="nav-content">
             <div class="logo">
-                <a href="/"><img src="{{ url_for('static', filename='logo_loria.png') }}" alt="Logo"></a>
+                <a href="{{ url_for('accueil') }}"><img src="{{ url_for('static', filename='logo_loria.png') }}" alt="Logo"></a>
             </div>
             <button class="hamburger" id="hamburger"></button>
             <nav class="nav-links">
-                <a href="/">{{ _('Home') }}</a>
+                <a href="{{ url_for('accueil') }}">{{ _('Home') }}</a>
                 <div class="dropdown">
                     <button class="dropbtn">{{ _('Leaderboard') }}▾</button>
                     <div class="dropdown-content">
-                        <a href="/leaderboard_global">{{ _('Global') }}</a>
-                        <a href="/leaderboard_neutral">{{ _('Neutral') }}</a>
-                        <a href="/leaderboard_gendered">{{ _('Gendered') }}</a>
+                        <a href="{{ url_for('leaderboard_global')}}">{{ _('Global') }}</a>
+                        <a href="{{ url_for('leaderboard_neutral')}}">{{ _('Neutral') }}</a>
+                        <a href="{{ url_for('leaderboard_gendered')}}">{{ _('Gendered') }}</a>
                     </div>
                 </div>
-                <a href="/upload">{{ _('Upload') }}</a>
-                <a href="/faqs">{{ _('FAQs') }}</a>
-                <a href="/about">{{ _('About Us') }}</a>
+                <a href="{{ url_for('upload') }}">{{ _('Upload') }}</a>
+                <a href="{{ url_for('faqs') }}">{{ _('FAQs') }}</a>
+                <a href="{{ url_for('about') }}">{{ _('About Us') }}</a>
                 <div class="dropdown">
                     <button class="dropbtn">
                         {% if get_locale() == 'fr' %}
@@ -37,9 +37,9 @@
                     </button>
                     <div class="dropdown-content">
                         {% if get_locale() == 'fr' %}
-                            <a href="/set_language/en">en</a>
+                            <a href="{{ url_for('set_language', lang='en') }}">en</a>
                         {% else %}
-                            <a href="/set_language/fr">fr</a>
+                            <a href="{{ url_for('set_language', lang='fr') }}">fr</a>
                         {% endif %}
                     </div>
                 </div>

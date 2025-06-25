@@ -165,7 +165,7 @@ def create_app():
                 "role": "PhD Student at LISN",
                 "description": "Bias analysis in Large Language Models",
                 "link": "https://fannyducel.github.io/",
-                "image": "/static/img/fanny.jpg"
+                "image": "fanny.jpg"
             },
             {
                 "id": "jeffrey",
@@ -173,7 +173,7 @@ def create_app():
                 "role": "NLP Student",
                 "description": "L3 Student at Univ. de Lorraine",
                 "link": "https://github.com/Kurokkaa",
-                "image": "/static/img/jeffrey.jpg"
+                "image": "jeffrey.jpg"
             },
             {
                 "id": "karen",
@@ -181,7 +181,7 @@ def create_app():
                 "role": "Linguistic resources for NLP and professor at Univ. de Lorraine",
                 "description": "Language resources and ethics for NLP",
                 "link": "https://members.loria.fr/KFort/",
-                "image": "/static/img/karen.png"
+                "image": "karen.png"
             },
             {
                 "id": "aurelie",
@@ -189,13 +189,13 @@ def create_app():
                 "role": "CNRS Researcher at LISN (formerly, LIMSI)",
                 "description": "Clinical and biomedical Natural Language Processing",
                 "link": "https://perso.limsi.fr/neveol/",
-                "image": "/static/img/aurelie.jpg"
+                "image": "aurelie.jpg"
             }
         ]
         return render_template('about.html', team=team)
 
     @app.route('/faqs')
-    def faq():
+    def faqs():
         return render_template('faqs.html')
 
 
@@ -432,7 +432,12 @@ def backup_database():
 
 #----------------------------------------Gender detection----------------------------------------#
 
-nlp = spacy.load("fr_dep_news_trf")
+
+def get_nlp():
+    """Load and cache the spaCy model."""
+    if not hasattr(get_nlp, "nlp"):
+        get_nlp.nlp = spacy.load("fr_dep_news_trf")
+    return get_nlp.nlp
 
 def get_gender(text, language="FR", details=False):
     """Apply linguistic rules based on Spacy tags to detect the first person singular gender
@@ -450,7 +455,7 @@ def get_gender(text, language="FR", details=False):
         gender_markers (list): the list of identified gender markers
     """
     text = text.replace("  ", " ")
-
+    nlp = get_nlp()
     doc = nlp(text)
 
     #list of gender-neutral (épicène) job titles from DELA, with Profession:fs:ms, to check and filter out if they're identified as Masc when used without a masc DET

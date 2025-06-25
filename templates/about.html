@@ -7,7 +7,7 @@
 <div class="team-container">
     {% for person in team %}
     <div class="member-card">
-        <img src="{{ person.image }}" class="card-img-top member-img" alt="{{ _('person_name_' + person.id) }}">
+        <img src="{{ url_for('static', filename='img/' ~ person.image) }}" class="card-img-top member-img" alt="{{ _('person_name_' + person.id) }}">
         <div class="card-body">
             <h5 class="card-title">{{ _('person_name_' + person.id) }}</h5>
             <a href="{{ person.link }}" target="_blank">{{ person.link }}</a>

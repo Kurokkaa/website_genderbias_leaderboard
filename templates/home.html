@@ -19,14 +19,14 @@
             <div class="card">
                 <h3>{{_('2nd')}}</h3>
                 <p>{{_('2nd_step')|safe}}</p><br><br>
-                <a href="/upload" class="btn-outline-primary">{{_('btn_upload')|safe}}</a>
+                <a href="{{ url_for('upload')}}" class="btn-outline-primary">{{_('btn_upload')|safe}}</a>
             </div>
             <div class="card">
                 <h3>{{_('3rd')}}</h3>
                 <p>
                     {{_('3rd_step')}}
                 </p>
-                <a href="/leaderboard_global" class="btn-outline-primary">{{_('see_btn')}}</a>
+                <a href="{{ url_for('leaderboard_global')}}" class="btn-outline-primary">{{_('see_btn')}}</a>
             </div>
         </div>
     </div>
